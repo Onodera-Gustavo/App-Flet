@@ -48,4 +48,14 @@ Criar um sistema funcional de votação eletrônica com:
 ---
 
 ## 📁 Estrutura do Projeto
+## 📅 Planejamento por Sprints
+
+| Sprint | Objetivo Principal                                      |
+|--------|----------------------------------------------------------|
+| 1️⃣     | Planejamento, modelagem UML e wireframes                |
+| 2️⃣     | API, banco de dados e versão inicial para desktop       |
+| 3️⃣     | Versão web + integração + autenticação                  |
+| 4️⃣     | Versão mobile + testes e documentação final             |
+
+---
 
