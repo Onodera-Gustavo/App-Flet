@@ -17,14 +17,13 @@ Criar um sistema funcional de votação eletrônica com:
 ---
 
 ## 👨‍👩‍👧‍👦 Equipe
-
+- Gustavo Sousa ( Scrum Master ) - Dono do repositório
 - Alexis  
-- Daniela  
+- Daniela ( P.O )
 - Edgar  
 - Gustavo D.  
 - Matheus V.  
 - Renan  
-- [Seu Nome Aqui]
 
 ---
 
