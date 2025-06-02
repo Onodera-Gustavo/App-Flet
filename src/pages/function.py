@@ -58,9 +58,9 @@ class aviso():
         self.dialog.open = False
         self.page.update()
 
-        # Opcional: remover o diálogo dos overlays após fechar
-        # self.page.overlay.remove(self.dialog)
-        # self.page.update()
+    # def buttons(self, *buttons):
+    #     for button in buttons:
+    #         self.dialog.actions.append(button)
 
 
 

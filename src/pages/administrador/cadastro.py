@@ -68,13 +68,12 @@ def tela_cadastro(page: Page):
 
         controls = [
             Column([
-                    Text("Cadastro de Candidatos", size=48, weight="bold", color="#B5E0FD"), # type: ignore
-                    Text("Preencha os campos abaixo para cadastrar um novo candidato.", size=16, color="#92B1C5")
+                    Text("Cadastro de Candidatos", size=54, weight="bold", color="#B5E0FD"),
+                    Text("Preencha os campos abaixo para cadastrar um novo candidato.", size=20, color="#92B1C5")
                     ], 
-                   spacing=-5,
-                   horizontal_alignment="center" # type: ignore
+                spacing=-5,
+                horizontal_alignment="center"
                 ),
-            
             
             Column([
                 Text("Nome:", size=16, color="#92B1C5"),
@@ -89,21 +88,22 @@ def tela_cadastro(page: Page):
                 Text("Proposta:", size=16, color="#92B1C5"),
                 proposta_field
                 ],
-            spacing=10
+            spacing=10,
+            width=600
             ),
 
-            
-            Column([
+            Row([
                 ElevatedButton(text = "Cadastrar", scale = 1.3, width=200, on_click=lambda _: cadastrar(), style=elevated_button_style),
-                ElevatedButton(text = "Retornar", scale = 1.3, width=200, on_click=lambda e: page.go("/"), style=elevated_button_style)
+                ElevatedButton(text = "Retornar", scale = 1.3, width=200, on_click=lambda e: page.go("/menu"), style=elevated_button_style)
                 ], 
-                horizontal_alignment="center", # type: ignore
-                spacing=20
-                ),
+                alignment = ft.MainAxisAlignment.SPACE_BETWEEN, 
+                spacing=10,
+                width=540
+            ),
             
         ],
-        padding=40,
+       
         spacing=60,
-        horizontal_alignment="center", # type: ignore
-        vertical_alignment="top" # type: ignore
+        horizontal_alignment="center",  # Mantém
+        vertical_alignment="center"      # <<<<<< ALTERA AQUI
     )

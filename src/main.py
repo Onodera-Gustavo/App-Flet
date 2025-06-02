@@ -10,7 +10,7 @@ from pages.administrador.relatorio import tela_relatorio
 
 from pages.eleitor.votacao import tela_votacao
 
-from configuracao import configurar_mobile
+
 
 
 def main(page: Page) -> None:

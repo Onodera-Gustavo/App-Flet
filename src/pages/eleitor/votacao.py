@@ -98,9 +98,12 @@ def tela_votacao(page: Page):
         route="/votacao",
         controls=[
             Column([
-                Text("Votação", size=48, weight="bold", color="#B5E0FD"),
-                Text("Preencha os campos abaixo para Votar", size=16, color="#92B1C5"),
-            ], spacing=0, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                Text("Votação", size=54, weight="bold", color="#B5E0FD"),
+                Text("Preencha os campos abaixo para Votar", size=20, color="#92B1C5"),
+            ], 
+            spacing=0, 
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER
+            ),
             
             Column([
                 Text("Nome:", size=16, color="#92B1C5"),
@@ -109,7 +112,10 @@ def tela_votacao(page: Page):
                 alun_matricula,
                 Text("Número do Candidato:", size=16, color="#92B1C5"),
                 alun_voto
-            ], spacing=10),
+                ], 
+            spacing=10,
+            width=600
+            ),
             
             Row([
                 ElevatedButton(
@@ -123,12 +129,16 @@ def tela_votacao(page: Page):
                     text="Retornar", 
                     scale=1.3, 
                     width=200, 
-                    on_click=lambda _: page.go("/"), 
+                    on_click=lambda _: page.go("/menu"), 
                     style=elevated_button_style
                 )
-            ], spacing=80, alignment=ft.MainAxisAlignment.CENTER)
+            ], 
+            spacing=80, 
+            alignment = ft.MainAxisAlignment.SPACE_BETWEEN,
+            width=540
+            )
         ],
-        padding=40,
-        spacing=30,
-        horizontal_alignment=ft.CrossAxisAlignment.CENTER
+        spacing=60,
+        horizontal_alignment="center", 
+        vertical_alignment="center" 
     )
