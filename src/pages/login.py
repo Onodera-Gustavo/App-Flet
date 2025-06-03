@@ -5,8 +5,8 @@ from flet import Column, Row
 from pages.function import aviso, text_field_style, elevated_button_style
 
 def tela_login(page: Page):
-    identificacao_field = TextField(label="Identificação", autofocus=True, **text_field_style)
-    senha_field = TextField(label="Senha", password=True, **text_field_style)
+    identificacao_field = TextField(label="Identificação", autofocus=True, prefix_icon=ft.Icons.PERSON, **text_field_style)
+    senha_field = TextField(label="Senha", password=True, can_reveal_password=True, prefix_icon=ft.Icons.LOCK, **text_field_style)
 
     def filtro_usuarios(e):
         inde = identificacao_field.value.strip()
@@ -14,6 +14,10 @@ def tela_login(page: Page):
 
         if inde == 'admin' and senha == 'admin':
             page.go("/menu")
+
+        elif inde == 'eleitor' and senha == 'eleitor':
+            page.go("/votacao")
+            
         else:
             aviso(page, "Erro", "Usuário ou senha incorretos.")
 

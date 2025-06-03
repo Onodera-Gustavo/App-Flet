@@ -17,22 +17,17 @@ def tela_menu(page: Page):
             Container(content=Column(
                         [
                         Text("Menu Principal", size=48, weight="bold", color="#B5E0FD"), # type: ignore
-                        Column(
-                            [
+                        Column([
                             ElevatedButton(text ="Cadastrar Candidato", scale = 1.3, width=180, on_click=lambda e: page.go("/cadastro"), style=elevated_button_style),
                             ElevatedButton(text ="Relatório", scale = 1.3, width=180, on_click=lambda _: page.go("/relatorio"), style=elevated_button_style),
                             ElevatedButton(text ="Reiniciar Votação", scale = 1.3, width=180, style=elevated_button_style),
                             ElevatedButton(text ="Finalizar", scale = 1.3, width=180, on_click= lambda _: finalizar_secao(), style=elevated_button_style),
-                            ], 
-                            horizontal_alignment="center",
-                            spacing=30,
-                            )
-                        ]
-                ),
-                padding=30,
-                width=600, # Largura Maxima
-                expand=False,  # Não expandir além disso
-                alignment=ft.alignment.center,
+                            ], spacing=30,)
+                        ],
+                        spacing=40,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER
+                )
             )
         ],
         spacing=40,

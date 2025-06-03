@@ -1,6 +1,8 @@
 import flet as ft
-from flet import RouteChangeEvent
-from flet import Page
+from flet import RouteChangeEvent, Page
+
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 from pages.login import tela_login
 
@@ -10,14 +12,14 @@ from pages.administrador.relatorio import tela_relatorio
 
 from pages.eleitor.votacao import tela_votacao
 
+from configuracao import configurar_app
 
 
 
 def main(page: Page) -> None:
 
-   
+    configurar_app(page)
         
-
     # Configurações de tema e tamanho
     page.theme_mode = "dark"
 
@@ -52,11 +54,8 @@ def main(page: Page) -> None:
     
 
 if __name__ == '__main__':
-    # Para web
-    # ft.app(target=main, view=ft.WEB_BROWSER)
-    
-    # Para desktop
+    # Para desktop e web
     ft.app(target=main)
     
     # Para mobile (usando Flet app)
-    # ft.app(target=main, view=ft.AppView.FLET_APP)
+    #ft.app(target=main, view=ft.AppView.FLET_APP)
