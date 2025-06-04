@@ -50,5 +50,3 @@ Criar um sistema funcional de votação eletrônica com:
 
 ---
 
-## 📁 Estrutura do Projeto
-Add comment
