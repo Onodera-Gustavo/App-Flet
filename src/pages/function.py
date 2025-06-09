@@ -9,7 +9,7 @@ class LettersOnlyInputFilter(ft.InputFilter):
         
     def filter(self, text, multiline=False):
         import re
-        return re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚâêîôÂÊÎÔãõÃÕçÇàèìòùÀÈÌÒÙäëïöüÄËÏÖÜñÑ\s\'-]', '', text)
+        return re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚâêîôÂÊÎÔãõÃÕçÇàèìòùÀÈÌÒÙäëïöüÄËÏÖÜñÑ\s\'- ]', '', text)
     
 
 class aviso():

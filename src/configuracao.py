@@ -1,5 +1,5 @@
 import flet as ft
-from flet import Page, Theme, TextStyle, FontWeight, padding, RoundedRectangleBorder, ButtonStyle, MaterialState
+from flet import Page, Theme, TextStyle, FontWeight, padding, RoundedRectangleBorder, ButtonStyle
 
 class AppConfig:
     """Classe para configurações da aplicação"""
@@ -51,6 +51,43 @@ class AppConfig:
             }
         }
 
+    @staticmethod
+    def get_text_field_style(page: Page):
+        """Retorna o estilo para TextField baseado na plataforma"""
+        is_mobile = page.platform in ["android", "ios"]
+        colors = AppConfig.COLOR_PALETTE
+        
+        return {
+            "border_color": colors["secondary"],
+            "focused_border_color": colors["accent"],
+            "cursor_color": colors["accent"],
+            "text_size": 16 if not is_mobile else 14,
+            "color": colors["text"],
+            "bgcolor": colors["surface"],
+            "border_radius": 8,
+            "border_width": 1.5,
+            "content_padding": padding.symmetric(
+                horizontal=12 if is_mobile else 16,
+                vertical=14 if is_mobile else 16
+            ),
+            "label_style": TextStyle(color=colors["accent"], size=14 if is_mobile else 16)
+        }
+
+    @staticmethod
+    def get_elevated_button_style(page: Page):
+        """Retorna estilo para ElevatedButton baseado na plataforma"""
+        colors = AppConfig.COLOR_PALETTE
+        theme_config = AppConfig.get_theme_config(page.platform)
+        
+        return ButtonStyle(
+        bgcolor=colors["primary"],
+        color=colors["text"],
+        elevation=4,
+        padding=theme_config["button"]["padding"],
+        shape=RoundedRectangleBorder(radius=8),
+        overlay_color=colors["secondary"]
+    )
+
 def configurar_app(page: Page):
     """Configura a aplicação baseada na plataforma"""
     
@@ -67,7 +104,8 @@ def configurar_app(page: Page):
 
 def configurar_mobile(page: Page):
     """Configurações específicas para mobile"""
-    page.window_full_screen = True
+    print("Configurando mobile")
+    page.window.full_screen = True
     page.title = "Sistema de Votação Mobile"
     page.padding = 10
     page.horizontal_alignment = "center"
@@ -75,21 +113,23 @@ def configurar_mobile(page: Page):
 
 def configurar_web(page: Page):
     """Configurações específicas para web"""
-    page.window_width = 1024
-    page.window_height = 768
-    page.window_resizable = True
+    print("Configurando web")
+    page.window.width = 1024
+    page.window.height = 768
+    page.window.resizable = True
     page.title = "Sistema de Votação Web"
     page.padding = 20
 
 def configurar_desktop(page: Page):
     """Configurações específicas para desktop"""
-    page.window_width = 1024
-    page.window_height = 768
-    page.window_min_width = 800
-    page.window_min_height = 600
+    print("Configurando desktop")
+    page.window.width = 1024
+    page.window.height = 768
+    page.window.min_width = 800
+    page.window.min_height = 600
     page.title = "Sistema de Votação Desktop"
     page.padding = 20
-    page.window_center()
+    page.window.center()
 
 def aplicar_tema_global(page: Page):
     """Aplica o tema global baseado na plataforma"""
@@ -137,65 +177,6 @@ def aplicar_tema_global(page: Page):
                 size=theme_config["text_sizes"]["label"],
                 color=colors["accent"]
             )
-        ),
-        elevated_button_theme=ft.ElevatedButtonTheme(
-            style=ButtonStyle(
-                bgcolor={
-                    MaterialState.DEFAULT: colors["primary"],
-                    MaterialState.HOVERED: colors["secondary"],
-                    MaterialState.FOCUSED: colors["secondary"]
-                },
-                foreground_color=colors["text"],
-                elevation={"pressed": 2, "": 4},
-                padding=theme_config["button"]["padding"],
-                shape=RoundedRectangleBorder(radius=8),
-                animation_duration=200
-            )
-        ),
-        text_button_theme=ft.TextButtonTheme(
-            style=ButtonStyle(
-                foreground_color={
-                    MaterialState.DEFAULT: colors["accent"],
-                    MaterialState.HOVERED: colors["primary"]
-                },
-                padding=theme_config["button"]["padding"],
-                overlay_color=colors["secondary"] + "33"  # Adiciona transparência
-            )
-        ),
-        input_decoration_theme=ft.InputDecorationTheme(
-            filled=True,
-            fill_color=colors["surface"],
-            border=ft.InputBorder.OUTLINE,
-            focused_border_color=colors["accent"],
-            content_padding=theme_config["padding"]["medium"],
-            border_radius=8,
-            label_style=TextStyle(color=colors["accent"])
         )
     )
     page.theme_mode = "dark"  # Forçar tema escuro
-
-def get_text_field_style(page: Page):
-    """Retorna estilo para TextField baseado na plataforma"""
-    colors = AppConfig.COLOR_PALETTE
-    return {
-        "border_color": colors["secondary"],
-        "focused_border_color": colors["accent"],
-        "cursor_color": colors["accent"],
-        "color": colors["text"],
-        "bgcolor": colors["surface"],
-        "border_radius": 8,
-        "border_width": 1.5,
-        "content_padding": AppConfig.get_theme_config(page.platform)["padding"]["medium"]
-    }
-
-def get_elevated_button_style(page: Page):
-    """Retorna estilo para ElevatedButton baseado na plataforma"""
-    return {
-        "min_width": AppConfig.get_theme_config(page.platform)["button"]["min_width"],
-        "style": ButtonStyle(
-            bgcolor={
-                MaterialState.DEFAULT: AppConfig.COLOR_PALETTE["primary"],
-                MaterialState.HOVERED: AppConfig.COLOR_PALETTE["secondary"]
-            }
-        )
-    }

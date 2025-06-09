@@ -19,14 +19,6 @@ from configuracao import configurar_app
 def main(page: Page) -> None:
 
     configurar_app(page)
-        
-    # Configurações de tema e tamanho
-    page.theme_mode = "dark"
-
-    page.window.width = 1024  # Largura inicial
-    page.window.height = 768  # Altura inicial
-    page.window.min_width = 800  # Largura mínima
-    page.window.min_height = 600  # Altura mínima
     
     def route_change(e: RouteChangeEvent) -> None:
         """Evento de mudança de rota"""
@@ -50,7 +42,12 @@ def main(page: Page) -> None:
         page.update()
     
     page.on_route_change = route_change
-    page.go(page.route)
+
+    if not page.route or page.route == "":
+        page.go("/")
+    else:
+        page.go(page.route)
+    
     
 
 if __name__ == '__main__':
