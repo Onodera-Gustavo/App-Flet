@@ -49,7 +49,7 @@ def tela_login(page: Page):
         controls=[
             Container(
                 width=page.width,
-                height=page.height, # Aumenta a altura da tela, por algum motivo o page.height não pega a tela inteira 
+                height=page.height,
                 bgcolor=AppConfig.COLOR_PALETTE["background"],
                 content=Column(
                     [
