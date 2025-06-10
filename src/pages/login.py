@@ -1,6 +1,6 @@
 import flet as ft
-from flet import Page, View, Text, ElevatedButton, TextField, Container
-from flet import Column
+from flet import Page, View, Column, Row, Container, Divider
+from flet import Text, ElevatedButton, TextField
 
 from pages.function import aviso
 from configuracao import AppConfig
@@ -21,14 +21,14 @@ def tela_login(page: Page):
     senha_field = TextField(
         label="Senha",
         password=True,
-        can_reveal_password=True,
         prefix_icon=ft.Icons.LOCK,
-        **text_field_style
+        **AppConfig.get_text_field_style(page, is_password = True)
     )
 
     login_button = ElevatedButton(
         text="Entrar",
-        scale=1.3,
+        scale=1.5,
+        width=250,
         on_click=lambda _: filtro_usuarios(),
         style=button_style
     )
@@ -50,21 +50,53 @@ def tela_login(page: Page):
             Container(
                 width=page.width,
                 height=page.height,
-                bgcolor=AppConfig.COLOR_PALETTE["background"],
+                
                 content=Column(
-                    [
-                        Text("Login", size=48, weight="bold", color="#B5E0FD"),
+                    [   
+                        Container(
+                            image=ft.Image(
+                                src=f"../assets/Logo.png",
+                                width=100,
+                                height=100,
+                                fit=ft.ImageFit.CONTAIN
+                            )
+                        ),
+                        Divider(),
+
+                        Text("Login", style = AppConfig.get_text_style(page, "title_large")),
                         identificacao_field,
                         senha_field,
-                        login_button
+                        login_button,
+                        Row(
+                            [
+                                Text("Esqueci minha senha", style = AppConfig.get_text_style(page, "body_small")),
+                                Text("Cadastrar", style = AppConfig.get_text_style(page, "body_small"))
+                            ],
+                            
+                            alignment="center"
+                        ),
+                        
                     ],
                     horizontal_alignment="center",
                     alignment="center",
                     spacing=30,
+                    width=600,
+                    expand=True
+                    
+                    
                 ),
+                
+                expand=False,
                 alignment=ft.alignment.center,
+                
+                
             )
         ],
-        padding=0,
-        spacing=0
+        padding=40,
+        spacing=0,
+        vertical_alignment="center",
+        horizontal_alignment="center",
+        bgcolor=AppConfig.COLOR_PALETTE["background"],
+        
+        
     )

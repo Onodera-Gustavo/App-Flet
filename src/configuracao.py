@@ -6,12 +6,17 @@ class AppConfig:
     
     # Paleta de cores consistente
     COLOR_PALETTE = {
-        "primary": "#1E49C0",
+        "button_primary": "#CF0810",
+        "button_on_hover": "#800408",
         "secondary": "#1469A1",
-        "accent": "#B5E0FD",
-        "text": "#F5F9FC",
-        "background": "#0A192F",
-        "surface": "#162A47",
+        
+        "accent": "#B3B3B3",
+        "text": "#ffffff",
+
+        "background": "#212327",
+        "surface": "#212327",
+
+
         "error": "#FF6B6B",
         "success": "#4CAF50"
     }
@@ -52,13 +57,14 @@ class AppConfig:
         }
 
     @staticmethod
-    def get_text_field_style(page: Page):
+    def get_text_field_style(page: Page, is_password: bool = False):
         """Retorna o estilo para TextField baseado na plataforma"""
         is_mobile = page.platform in ["android", "ios"]
         colors = AppConfig.COLOR_PALETTE
         
         return {
             "border_color": colors["secondary"],
+            "border" :ft.InputBorder.UNDERLINE,
             "focused_border_color": colors["accent"],
             "cursor_color": colors["accent"],
             "text_size": 16 if not is_mobile else 14,
@@ -70,8 +76,46 @@ class AppConfig:
                 horizontal=12 if is_mobile else 16,
                 vertical=14 if is_mobile else 16
             ),
-            "label_style": TextStyle(color=colors["accent"], size=14 if is_mobile else 16)
+            "label_style": TextStyle(color=colors["accent"], size=14 if is_mobile else 16),
+            "can_reveal_password": is_password
         }
+    
+    @staticmethod
+    def get_text_style(page: Page, style_type: str):
+        """Retorna o estilo de texto baseado na plataforma"""
+        theme_config = AppConfig.get_theme_config(page.platform)
+        colors = AppConfig.COLOR_PALETTE
+        
+        styles = {
+            "title_large": TextStyle(
+                size=theme_config["text_sizes"]["title_large"],
+                weight=FontWeight.BOLD,
+                color=colors["text"]
+            ),
+            "title_medium": TextStyle(
+                size=theme_config["text_sizes"]["title_medium"],
+                weight=FontWeight.BOLD,
+                color=colors["text"]
+            ),
+            "body_medium": TextStyle(
+                size=theme_config["text_sizes"]["body_medium"],
+                color=colors["text"]
+            ),
+            "body_small": TextStyle(
+                size=theme_config["text_sizes"]["body_small"],
+                color=colors["text"]
+            ),
+            "body_description": TextStyle(
+                size=theme_config["text_sizes"]["body_small"],
+                color=colors["accent"]
+            ),
+            "label": TextStyle(
+                size=theme_config["text_sizes"]["label"],
+                color=colors["text"]
+            )
+        }
+        
+        return styles.get(style_type, styles["body_medium"])
 
     @staticmethod
     def get_elevated_button_style(page: Page):
@@ -80,12 +124,12 @@ class AppConfig:
         theme_config = AppConfig.get_theme_config(page.platform)
         
         return ButtonStyle(
-        bgcolor=colors["primary"],
+        bgcolor=colors["button_primary"],
         color=colors["text"],
         elevation=4,
         padding=theme_config["button"]["padding"],
         shape=RoundedRectangleBorder(radius=8),
-        overlay_color=colors["secondary"]
+        overlay_color=colors["button_on_hover"]
     )
 
 def configurar_app(page: Page):
@@ -138,32 +182,37 @@ def aplicar_tema_global(page: Page):
     
     page.theme = Theme(
         color_scheme=ft.ColorScheme(
-            primary=colors["primary"],
+            primary=colors["button_primary"],
+            on_primary=colors["button_on_hover"],
+
             secondary=colors["secondary"],
-            surface=colors["surface"],
-            background=colors["background"],
-            error=colors["error"],
-            on_primary=colors["text"],
             on_secondary=colors["text"],
-            on_surface=colors["text"],
+            
+            error=colors["error"],
+            on_error=colors["text"],
+            
+            background=colors["background"],
             on_background=colors["text"],
-            on_error=colors["text"]
+
+            surface=colors["surface"],
+            on_surface=colors["text"],
+            
         ),
         text_theme=ft.TextTheme(
             title_large=TextStyle(
                 size=theme_config["text_sizes"]["title_large"],
                 weight=FontWeight.BOLD,
-                color=colors["accent"]
+                color=colors["text"]
             ),
             title_medium=TextStyle(
                 size=theme_config["text_sizes"]["title_medium"],
                 weight=FontWeight.BOLD,
-                color=colors["accent"]
+                color=colors["text"]
             ),
             title_small=TextStyle(
                 size=theme_config["text_sizes"]["title_small"],
                 weight=FontWeight.BOLD,
-                color=colors["accent"]
+                color=colors["text"]
             ),
             body_large=TextStyle(
                 size=theme_config["text_sizes"]["body_large"],
@@ -175,7 +224,7 @@ def aplicar_tema_global(page: Page):
             ),
             label_large=TextStyle(
                 size=theme_config["text_sizes"]["label"],
-                color=colors["accent"]
+                color=colors["text"]
             )
         )
     )
