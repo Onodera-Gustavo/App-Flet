@@ -1,9 +1,45 @@
 import flet as ft
-from flet import Page, View, Text, ElevatedButton, Container
-from flet import Column
+from flet import Page, View, Column, Row, Container, Divider
+from flet import Text, ElevatedButton, TextField
 
-from pages.function import elevated_button_style
+from pages.function import aviso
+from configuracao import AppConfig
+
 def tela_menu(page: Page):
+
+    button_style = AppConfig.get_elevated_button_style(page)
+
+    cadastrar_button = ElevatedButton(
+        text="Entrar",
+        scale=1.3,
+        width=250,
+        # on_click=lambda _: ,
+        style=button_style
+    )
+
+    remover_button = ElevatedButton(
+        text="Entrar",
+        scale=1.3,
+        width=250,
+        # on_click=lambda _: ,
+        style=button_style
+    )
+
+    editar_button = ElevatedButton(
+        text="Entrar",
+        scale=1.3,
+        width=250,
+        # on_click=lambda _: ,
+        style=button_style
+    )
+
+    relatorio_button = ElevatedButton(
+        text="Entrar",
+        scale=1.3,
+        width=250,
+        # on_click=lambda _: ,
+        style=button_style
+    )
 
     def finalizar_secao():
         """Encerra a sessão do usuário"""
@@ -14,24 +50,45 @@ def tela_menu(page: Page):
     return View(
         route="/menu",
         controls=[
-            Container(content=Column(
-                        [
-                        Text("Menu Principal", size=48, weight="bold", color="#B5E0FD"), # type: ignore
-                        Column([
-                            ElevatedButton(text ="Cadastrar Candidato", scale = 1.3, width=180, on_click=lambda e: page.go("/cadastro"), style=elevated_button_style),
-                            ElevatedButton(text ="Relatório", scale = 1.3, width=180, on_click=lambda _: page.go("/relatorio"), style=elevated_button_style),
-                            ElevatedButton(text ="Reiniciar Votação", scale = 1.3, width=180, style=elevated_button_style),
-                            ElevatedButton(text ="Finalizar", scale = 1.3, width=180, on_click= lambda _: finalizar_secao(), style=elevated_button_style),
-                            ], spacing=30,)
-                        ],
-                        spacing=40,
-                        alignment=ft.MainAxisAlignment.CENTER,
-                        horizontal_alignment=ft.CrossAxisAlignment.CENTER
+            Container(
+                expand = True,
+                bgcolor=AppConfig.COLOR_PALETTE["error"],
+                content=Column(
+                    [
+                         Container(
+                            # bgcolor=AppConfig.COLOR_PALETTE["secondary"],
+                            content=Column(
+                                [
+                                    ft.Image(
+                                        src="../assets/Logo.png",
+                                        width=150,
+                                        height=150,
+                                        fit=ft.ImageFit.CONTAIN
+                                    ),
+                                    Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                                ],
+                                horizontal_alignment="center",
+                                spacing=6
+                            ),
+                            
+                        ),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Container(
+                            content=Column(
+                                [
+
+                                ]
+                            )
+                        )
+                    ]
                 )
-            )
-        ],
-        spacing=40,
+
+            )#Container 
+        ],#Control
         horizontal_alignment="center",
         vertical_alignment="center",
-        scroll=False,
+        padding=20,
+        spacing=0,
+        bgcolor=AppConfig.COLOR_PALETTE["background"],  
     )
+

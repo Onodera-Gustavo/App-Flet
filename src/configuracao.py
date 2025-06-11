@@ -16,7 +16,6 @@ class AppConfig:
         "background": "#212327",
         "surface": "#212327",
 
-
         "error": "#FF6B6B",
         "success": "#4CAF50"
     }
@@ -166,7 +165,7 @@ def configurar_web(page: Page):
 
 def configurar_desktop(page: Page):
     """Configurações específicas para desktop"""
-    print("Configurando desktop")
+    # print("Configurando desktop")
     page.window.width = 1024
     page.window.height = 768
     page.window.min_width = 800

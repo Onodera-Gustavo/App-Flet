@@ -6,7 +6,7 @@ from pages.function import aviso
 from configuracao import AppConfig
 
 def tela_login(page: Page):
-    print("Criando tela de login") 
+    
     
     text_field_style = AppConfig.get_text_field_style(page)
     button_style = AppConfig.get_elevated_button_style(page)
@@ -14,20 +14,21 @@ def tela_login(page: Page):
     identificacao_field = TextField(
         label="Identificação",
         autofocus=True,
+        width=400,
         prefix_icon=ft.Icons.PERSON,
         **text_field_style
     )
 
     senha_field = TextField(
         label="Senha",
-        password=True,
+        width=400,
         prefix_icon=ft.Icons.LOCK,
         **AppConfig.get_text_field_style(page, is_password = True)
     )
 
     login_button = ElevatedButton(
         text="Entrar",
-        scale=1.5,
+        scale=1.3,
         width=250,
         on_click=lambda _: filtro_usuarios(),
         style=button_style
@@ -48,55 +49,95 @@ def tela_login(page: Page):
         route="/",
         controls=[
             Container(
-                width=page.width,
-                height=page.height,
-                
+                expand = True,
+                bgcolor=AppConfig.COLOR_PALETTE["error"],
                 content=Column(
-                    [   
+                    [
                         Container(
-                            image=ft.Image(
-                                src=f"../assets/Logo.png",
-                                width=100,
-                                height=100,
-                                fit=ft.ImageFit.CONTAIN
-                            )
-                        ),
-                        Divider(),
-
-                        Text("Login", style = AppConfig.get_text_style(page, "title_large")),
-                        identificacao_field,
-                        senha_field,
-                        login_button,
-                        Row(
-                            [
-                                Text("Esqueci minha senha", style = AppConfig.get_text_style(page, "body_small")),
-                                Text("Cadastrar", style = AppConfig.get_text_style(page, "body_small"))
-                            ],
+                            # bgcolor=AppConfig.COLOR_PALETTE["secondary"],
+                            content=Column(
+                                [
+                                    ft.Image(
+                                        src="../assets/Logo.png",
+                                        width=150,
+                                        height=150,
+                                        fit=ft.ImageFit.CONTAIN
+                                    ),
+                                    Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                                ],
+                                horizontal_alignment="center",
+                                spacing=6
+                            ),
                             
-                            alignment="center"
                         ),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Text("Login", style=AppConfig.get_text_style(page, style_type="title_medium")),
+                        Column(
+                            [
+                                identificacao_field,
+                                senha_field,
+                                Column(
+                                    [
+                                        login_button,
+                                        Row(
+                                            [
+                                                Text("Esqueci a senha", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                                Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                                Text("Cadastrar", style=AppConfig.get_text_style(page, style_type="body_description"))
+                                            ],
+                                            spacing=20,
+                                            alignment=ft.MainAxisAlignment.START
+                                        )
+                                    ],
+                                    width=320,
+                                    spacing=10,
+                                    horizontal_alignment="center"
+                                )
+                                
+
+                            ],
+                            # height=400,
+                            spacing=30,
+                            horizontal_alignment="center"
+                        ),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Column(
+                            [
+                                Row(
+                                    [
+                                        Text("Termos de uso", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("Política de privacidade", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("Cookies", style=AppConfig.get_text_style(page, style_type="body_description"))
+                                    ],
+                                    alignment=ft.MainAxisAlignment.SPACE_AROUND
+                                ),
+                                Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                                Row(
+                                    [
+                                        Text("SENAI - SP", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("Game Awards", style=AppConfig.get_text_style(page, style_type="body_description"))
+                                    ],
+                                    alignment=ft.MainAxisAlignment.START
+                                )
+                            ],
+                            spacing=4,
+                        )
+
+
                         
                     ],
+                    spacing= 10,
                     horizontal_alignment="center",
-                    alignment="center",
-                    spacing=30,
-                    width=600,
-                    expand=True
-                    
-                    
-                ),
-                
-                expand=False,
-                alignment=ft.alignment.center,
-                
-                
-            )
-        ],
-        padding=40,
-        spacing=0,
-        vertical_alignment="center",
+
+                )  
+            )#Container 
+        ],#Control
         horizontal_alignment="center",
-        bgcolor=AppConfig.COLOR_PALETTE["background"],
-        
-        
+        vertical_alignment="center",
+        padding=20,
+        spacing=0,
+        bgcolor=AppConfig.COLOR_PALETTE["background"],  
     )
