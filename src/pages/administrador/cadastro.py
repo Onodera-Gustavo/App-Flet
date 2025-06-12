@@ -1,109 +1,119 @@
 import flet as ft
-from flet import Page, View, Text, ElevatedButton,  TextField
-from flet import Column, Row
+from flet import Page, View, Column, Row, Container, Divider
+from flet import Text, ElevatedButton, TextField
 
 from pages.function import aviso, LettersOnlyInputFilter
-from pages.function import text_field_style, elevated_button_style
-from pages.db import carregar_candidatos, salvar_candidatos
+from configuracao import AppConfig
 
 def tela_cadastro(page: Page):
     """Cadastro de Candidatos"""
-    candidatos = []
-    # Campos do formulário (mantidos iguais)
+    
+    text_field_style = AppConfig.get_text_field_style(page)
+    button_style = AppConfig.get_elevated_button_style(page)
+
+    
     nome_field = TextField(label="Nome do candidato:", input_filter=LettersOnlyInputFilter(),  autofocus=True, **text_field_style)
-    partido_field = TextField(label="Partido do candidato:", input_filter=LettersOnlyInputFilter(),  **text_field_style)
-    numero_field = TextField(label="Número do candidato:", input_filter=ft.NumbersOnlyInputFilter(), max_length=2, **text_field_style)
-    proposta_field = TextField(label="Proposta eleitoral:", max_length=100, multiline=True, min_lines=3, max_lines=5, **text_field_style)
+    genero_field = TextField(label="Partido do candidato:", input_filter=LettersOnlyInputFilter(),  **text_field_style)
+    data_field = TextField(label="Número do candidato:", input_filter=ft.NumbersOnlyInputFilter(), **text_field_style)
+    
+    cadastrar_button = ElevatedButton(
+        text="Cadastrar",
+        scale=1.3,
+        width=200,
+        # on_click=lambda _:,
+        style=button_style
+    )
+    
+    Retornar_button = ElevatedButton(
+        text="Cadastrar",
+        scale=1.3,
+        width=200,
+        on_click=lambda _: page.go("/menu"),
+        style=button_style
+    )
+    
 
     def cadastrar():
         """Cadastrar um novo candidato"""
-        
-        nome = nome_field.value
-        partido = partido_field.value
-        numero = numero_field.value
-        proposta = proposta_field.value
-
-        if not numero or not numero.isdigit() or len(numero) != 2 or not nome or not partido or not proposta:
-            aviso(page, "Erro", "Preencha todos os campos corretamente.")
-            return
-        
-        try:
-            candidatos = carregar_candidatos(caminho="Candidato")
-            
-            # Verify the structure of loaded data
-            if not all(isinstance(candidato, dict) for candidato in candidatos):
-                aviso(page, "Erro", "Dados de candidatos corrompidos. Recriando arquivo.")
-                candidatos = []
-            
-            if any(str(candidato.get("Numero Eleitoral", "")) == numero for candidato in candidatos):
-                aviso(page, "Erro", "Número de candidato já cadastrado.")
-                return
-            
-            candidato = {
-                "Nome": nome,
-                "Partido": partido,
-                "Numero Eleitoral": int(numero),  # Store as integer
-                "Votos": 0,
-                "Proposta": proposta
-            }
-            
-            candidatos.append(candidato)
-            salvar_candidatos(candidatos, caminho="Candidato")
-            
-            aviso(page, "Sucesso", "Candidato cadastrado com sucesso!")
-            
-            # Limpa os campos
-            nome_field.value = ""
-            partido_field.value = ""
-            numero_field.value = ""
-            proposta_field.value = ""
-            page.update()
-            
-        except Exception as ex:
-            aviso(page, "Erro", f"Ocorreu um erro: {str(ex)}")
-
+        pass
+       
 
     return View(
         route="/cadastro",
-
         controls = [
-            Column([
-                    Text("Cadastro de Candidatos", size=54, weight="bold", color="#B5E0FD"),
-                    Text("Preencha os campos abaixo para cadastrar um novo candidato.", size=20, color="#92B1C5")
-                    ], 
-                spacing=-5,
-                horizontal_alignment="center"
-                ),
-            
-            Column([
-                Text("Nome:", size=16, color="#92B1C5"),
-                nome_field,
-
-                Text("Partido:", size=16, color="#92B1C5"),
-                partido_field,
-
-                Text("Número:", size=16, color="#92B1C5"),
-                numero_field,
-
-                Text("Proposta:", size=16, color="#92B1C5"),
-                proposta_field
-                ],
-            spacing=10,
-            width=600
-            ),
-
-            Row([
-                ElevatedButton(text = "Cadastrar", scale = 1.3, width=200, on_click=lambda _: cadastrar(), style=elevated_button_style),
-                ElevatedButton(text = "Retornar", scale = 1.3, width=200, on_click=lambda e: page.go("/menu"), style=elevated_button_style)
-                ], 
-                alignment = ft.MainAxisAlignment.SPACE_BETWEEN, 
-                spacing=10,
-                width=540
-            ),
-            
-        ],
-       
-        spacing=60,
-        horizontal_alignment="center",  # Mantém
-        vertical_alignment="center"      # <<<<<< ALTERA AQUI
+            Container(
+                expand = True,
+                # bgcolor=AppConfig.COLOR_PALETTE["teste"],
+                content=Column(
+                    [
+                        Container(
+                            # bgcolor=AppConfig.COLOR_PALETTE["teste_2"],
+                            content=Column(
+                                [
+                                    ft.Image(
+                                        src="../assets/Logo.png",
+                                        width=150,
+                                        height=150,
+                                        fit=ft.ImageFit.CONTAIN
+                                    ),
+                                    Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                                ],
+                                horizontal_alignment="center",
+                                spacing=6
+                            ),
+                            
+                        ),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Row(
+                            [
+                                # Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                                Container(
+                                    # bgcolor=AppConfig.COLOR_PALETTE["teste_2"],
+                                    content=Column(
+                                        [
+                                            ft.Image(
+                                                src="../assets/Logo.png",
+                                                width=150,
+                                                height=150,
+                                                fit=ft.ImageFit.CONTAIN
+                                            ),
+                                            Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                                        ],
+                                        alignment="center",
+                                        horizontal_alignment="center",
+                                        spacing=6
+                                    ),
+                                    
+                                ),
+                                Column(
+                                    [
+                                        nome_field,
+                                        genero_field,
+                                        data_field,
+                                        Column(
+                                            [
+                                                cadastrar_button,
+                                                Retornar_button
+                                            ],
+                                            spacing=20,
+                                            horizontal_alignment="center"
+                                        )
+                                        
+                                    ],
+                                    spacing=25,
+                                    horizontal_alignment="center"
+                                ),
+                                # Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                            ],
+                            height=400,
+                            alignment= ft.MainAxisAlignment.SPACE_EVENLY
+                        ),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                    ]
+                )
+            )#Container 
+        ],#Control
+        padding=20,
+        spacing=0,
+        bgcolor=AppConfig.COLOR_PALETTE["background"],  
     )

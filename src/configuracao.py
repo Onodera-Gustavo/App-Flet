@@ -17,7 +17,12 @@ class AppConfig:
         "surface": "#212327",
 
         "error": "#FF6B6B",
-        "success": "#4CAF50"
+        "success": "#4CAF50",
+        
+        "teste": "#2FCB34",
+        "teste_2": "#CB732F",
+        "teste_3": "#2F9CCB",
+        "teste_4": "#CB2F82"
     }
 
     @staticmethod
@@ -56,7 +61,7 @@ class AppConfig:
         }
 
     @staticmethod
-    def get_text_field_style(page: Page, is_password: bool = False):
+    def get_text_field_style(page: Page):
         """Retorna o estilo para TextField baseado na plataforma"""
         is_mobile = page.platform in ["android", "ios"]
         colors = AppConfig.COLOR_PALETTE
@@ -75,8 +80,7 @@ class AppConfig:
                 horizontal=12 if is_mobile else 16,
                 vertical=14 if is_mobile else 16
             ),
-            "label_style": TextStyle(color=colors["accent"], size=14 if is_mobile else 16),
-            "can_reveal_password": is_password
+            "label_style": TextStyle(color=colors["accent"], size=14 if is_mobile else 16)
         }
     
     @staticmethod
@@ -93,6 +97,11 @@ class AppConfig:
             ),
             "title_medium": TextStyle(
                 size=theme_config["text_sizes"]["title_medium"],
+                weight=FontWeight.BOLD,
+                color=colors["text"]
+            ),
+            "title_small": TextStyle(
+                size=theme_config["text_sizes"]["title_small"],
                 weight=FontWeight.BOLD,
                 color=colors["text"]
             ),

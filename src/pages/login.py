@@ -23,7 +23,9 @@ def tela_login(page: Page):
         label="Senha",
         width=400,
         prefix_icon=ft.Icons.LOCK,
-        **AppConfig.get_text_field_style(page, is_password = True)
+        **AppConfig.get_text_field_style(page),
+        password=True,
+        can_reveal_password=True
     )
 
     login_button = ElevatedButton(
@@ -50,11 +52,11 @@ def tela_login(page: Page):
         controls=[
             Container(
                 expand = True,
-                bgcolor=AppConfig.COLOR_PALETTE["error"],
+                # bgcolor=AppConfig.COLOR_PALETTE["teste"],
                 content=Column(
                     [
                         Container(
-                            # bgcolor=AppConfig.COLOR_PALETTE["secondary"],
+                            # bgcolor=AppConfig.COLOR_PALETTE["teste_2"],
                             content=Column(
                                 [
                                     ft.Image(
@@ -70,7 +72,7 @@ def tela_login(page: Page):
                             ),
                             
                         ),
-                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Container(expand=True),
                         Text("Login", style=AppConfig.get_text_style(page, style_type="title_medium")),
                         Column(
                             [
@@ -95,12 +97,11 @@ def tela_login(page: Page):
                                 )
                                 
 
-                            ],
-                            # height=400,
+                            ], 
                             spacing=30,
                             horizontal_alignment="center"
                         ),
-                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Container(expand=True),
                         Column(
                             [
                                 Row(
@@ -135,8 +136,6 @@ def tela_login(page: Page):
                 )  
             )#Container 
         ],#Control
-        horizontal_alignment="center",
-        vertical_alignment="center",
         padding=20,
         spacing=0,
         bgcolor=AppConfig.COLOR_PALETTE["background"],  
