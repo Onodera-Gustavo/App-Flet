@@ -25,7 +25,10 @@ def main(page: Page) -> None:
         page.views.clear()
 
         if page.route == "/":
-            page.views.append(tela_login(page))
+            page.views.append(tela_votacao(page))
+
+        # if page.route == "/":
+        #     page.views.append(tela_login(page))
 
         if page.route == "/menu":
             page.views.append(tela_menu(page))

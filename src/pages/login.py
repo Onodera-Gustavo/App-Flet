@@ -56,6 +56,7 @@ def tela_login(page: Page):
                 content=Column(
                     [
                         Container(
+                            alignment=ft.alignment.top_center,
                             # bgcolor=AppConfig.COLOR_PALETTE["teste_2"],
                             content=Column(
                                 [
@@ -95,11 +96,10 @@ def tela_login(page: Page):
                                     spacing=10,
                                     horizontal_alignment="center"
                                 )
-                                
-
-                            ], 
+                            ],
+                            alignment=ft.alignment.center,
                             spacing=30,
-                            horizontal_alignment="center"
+                            
                         ),
                         Container(expand=True),
                         Column(
@@ -124,6 +124,7 @@ def tela_login(page: Page):
                                     alignment=ft.MainAxisAlignment.START
                                 )
                             ],
+                            
                             spacing=4,
                         )
 

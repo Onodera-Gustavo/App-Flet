@@ -8,7 +8,9 @@ class AppConfig:
     COLOR_PALETTE = {
         "button_primary": "#CF0810",
         "button_on_hover": "#800408",
-        "secondary": "#1469A1",
+
+        "secondary": "#A61F1F",
+        "on_secondary": "#282828",
         
         "accent": "#B3B3B3",
         "text": "#ffffff",

@@ -11,32 +11,32 @@ def tela_menu(page: Page):
 
     cadastrar_button = ElevatedButton(
         text="Cadastrar",
-        scale=1.3,
-        width=200,
+        scale=1.2,
+        width=250,
         on_click=lambda _: page.go("/cadastro"),
         style=button_style
     )
 
     remover_button = ElevatedButton(
         text="Remover",
-        scale=1.3,
-        width=200,
+        scale=1.2,
+        width=250,
         # on_click=lambda _: ,
         style=button_style
     )
 
     editar_button = ElevatedButton(
         text="Editar",
-        scale=1.3,
-        width=200,
+        scale=1.2,
+        width=250,
         # on_click=lambda _: ,
         style=button_style
     )
 
     relatorio_button = ElevatedButton(
         text="Relatório",
-        scale=1.3,
-        width=200,
+        scale=1.2,
+        width=250,
         # on_click=lambda _: ,
         style=button_style
     )
@@ -72,10 +72,9 @@ def tela_menu(page: Page):
                             ),
                             
                         ),
-                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Container(expand=True),
                         Row(
                             [
-                                Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
                                 Container(
                                     width=600,
                                     content=Column(
@@ -85,7 +84,8 @@ def tela_menu(page: Page):
                                                         cadastrar_button,
                                                         remover_button,
                                                     ],
-                                                    alignment= ft.MainAxisAlignment.SPACE_EVENLY
+                                                    alignment= ft.MainAxisAlignment.SPACE_EVENLY,
+                                                    spacing=50
                                                 ),
                                             Container(
                                                 # bgcolor=AppConfig.COLOR_PALETTE["teste_3"],
@@ -98,7 +98,6 @@ def tela_menu(page: Page):
                                                             fit=ft.ImageFit.CONTAIN
                                                         )
                                                     ],
-                                                    spacing=6
                                                 ),
                                                 
                                             ),
@@ -107,19 +106,47 @@ def tela_menu(page: Page):
                                                     editar_button,
                                                     relatorio_button,
                                                 ],
-                                                alignment= ft.MainAxisAlignment.SPACE_EVENLY
+                                                alignment= ft.MainAxisAlignment.SPACE_EVENLY,
+                                                spacing=50
                                             )
                                         ],
                                         alignment= ft.MainAxisAlignment.CENTER,
-                                        horizontal_alignment="center"
+                                        horizontal_alignment="center",
+                                        spacing=20
                                     )
                                 ), 
-                                Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"])
+                               
                             ],
+                            alignment= ft.MainAxisAlignment.CENTER,
                             height=400
                         ),
                         
-                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Container(expand=True),
+                        Column(
+                            [
+                                Row(
+                                    [
+                                        Text("Termos de uso", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("Política de privacidade", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("Cookies", style=AppConfig.get_text_style(page, style_type="body_description"))
+                                    ],
+                                    alignment=ft.MainAxisAlignment.SPACE_AROUND
+                                ),
+                                Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                                Row(
+                                    [
+                                        Text("SENAI - SP", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                        Text("Game Awards", style=AppConfig.get_text_style(page, style_type="body_description"))
+                                    ],
+                                    alignment=ft.MainAxisAlignment.START
+                                )
+                            ],
+                            
+                            spacing=4,
+                        )
                     ]
                 )
 
