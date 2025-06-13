@@ -7,38 +7,54 @@ from configuracao import AppConfig
 
 def tela_menu(page: Page):
 
-    button_style = AppConfig.get_elevated_button_style(page)
+    AppConfig.get_elevated_button_style(page)
 
-    cadastrar_button = ElevatedButton(
-        text="Cadastrar",
-        scale=1.2,
-        width=250,
-        on_click=lambda _: page.go("/cadastro"),
-        style=button_style
-    )
-
-    remover_button = ElevatedButton(
-        text="Remover",
-        scale=1.2,
-        width=250,
-        # on_click=lambda _: ,
-        style=button_style
+    cadastrar_button = ft.Stack(
+        controls=[
+            ft.Container(
+                width=180,
+                height=61, 
+                bgcolor=AppConfig.COLOR_PALETTE["error"],
+                        border_radius=ft.border_radius.only(
+                        top_left=0,
+                        top_right=0,
+                        bottom_left=30,
+                        bottom_right=0)
+            ),
+            ft.Container(
+                width=40,
+                height=61,
+                bgcolor=AppConfig.COLOR_PALETTE["error"],
+                left=10,
+                top=1,
+                rotate=ft.Rotate(angle=44.8),
+            ),
+            ft.Text("Menu", left=50, top=18)
+        ]
     )
 
     editar_button = ElevatedButton(
         text="Editar",
         scale=1.2,
         width=250,
-        # on_click=lambda _: ,
-        style=button_style
+        # on_click=lambda _: page.go(/"editar"),
+        style= AppConfig.get_elevated_button_style(page, style_type="menu")
     )
 
-    relatorio_button = ElevatedButton(
+    relatorios_button = ElevatedButton(
         text="Relatório",
         scale=1.2,
         width=250,
-        # on_click=lambda _: ,
-        style=button_style
+        # on_click=lambda _: page.go("/relatorio"),
+        style= AppConfig.get_elevated_button_style(page, style_type="menu")
+    )
+
+    finalizar_button = ElevatedButton(
+        text="Finalizar Sessão",
+        scale=1.2,
+        width=250,
+        on_click=lambda _: page.go("/"),
+        style= AppConfig.get_elevated_button_style(page, style_type="menu")
     )
 
     def finalizar_secao():
@@ -72,7 +88,7 @@ def tela_menu(page: Page):
                             ),
                             
                         ),
-                        Container(expand=True),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["success"]),
                         Row(
                             [
                                 Container(
@@ -82,7 +98,7 @@ def tela_menu(page: Page):
                                             Row(
                                                     [
                                                         cadastrar_button,
-                                                        remover_button,
+                                                        editar_button,
                                                     ],
                                                     alignment= ft.MainAxisAlignment.SPACE_EVENLY,
                                                     spacing=50
@@ -103,8 +119,8 @@ def tela_menu(page: Page):
                                             ),
                                             Row(
                                                 [
-                                                    editar_button,
-                                                    relatorio_button,
+                                                    relatorios_button,
+                                                    finalizar_button,
                                                 ],
                                                 alignment= ft.MainAxisAlignment.SPACE_EVENLY,
                                                 spacing=50
@@ -121,7 +137,7 @@ def tela_menu(page: Page):
                             height=400
                         ),
                         
-                        Container(expand=True),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["success"]),
                         Column(
                             [
                                 Row(

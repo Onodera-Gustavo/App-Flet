@@ -128,19 +128,41 @@ class AppConfig:
         return styles.get(style_type, styles["body_medium"])
 
     @staticmethod
-    def get_elevated_button_style(page: Page):
+    def get_elevated_button_style(page: Page, style_type: str = "primary"):
         """Retorna estilo para ElevatedButton baseado na plataforma"""
         colors = AppConfig.COLOR_PALETTE
         theme_config = AppConfig.get_theme_config(page.platform)
+
+        if style_type == "error":
+            return ButtonStyle(
+                bgcolor=colors["error"],
+                color=colors["text"],
+                elevation=4,
+                padding=theme_config["button"]["padding"],
+                shape=RoundedRectangleBorder(radius=8),
+                overlay_color=colors["on_error"]
+            )
         
-        return ButtonStyle(
-        bgcolor=colors["button_primary"],
-        color=colors["text"],
-        elevation=4,
-        padding=theme_config["button"]["padding"],
-        shape=RoundedRectangleBorder(radius=8),
-        overlay_color=colors["button_on_hover"]
-    )
+        if style_type == "menu":
+            return ButtonStyle(
+                bgcolor=colors["surface"],
+                color=colors["text"],
+                elevation=4.5,
+                padding=theme_config["button"]["padding"],
+                shape=RoundedRectangleBorder(radius=8),
+            )
+
+        if style_type == "primary":
+            return ButtonStyle(
+                bgcolor=colors["button_primary"],
+                color=colors["text"],
+                elevation=4,
+                padding=theme_config["button"]["padding"],
+                shape=RoundedRectangleBorder(radius=8),
+                overlay_color=colors["button_on_hover"]
+                )
+        
+        
 
 def configurar_app(page: Page):
     """Configura a aplicação baseada na plataforma"""

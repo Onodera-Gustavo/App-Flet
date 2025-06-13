@@ -73,7 +73,7 @@ def tela_login(page: Page):
                             ),
                             
                         ),
-                        Container(expand=True),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
                         Text("Login", style=AppConfig.get_text_style(page, style_type="title_medium")),
                         Column(
                             [
@@ -97,11 +97,12 @@ def tela_login(page: Page):
                                     horizontal_alignment="center"
                                 )
                             ],
+                            horizontal_alignment="center",
                             alignment=ft.alignment.center,
                             spacing=30,
                             
                         ),
-                        Container(expand=True),
+                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
                         Column(
                             [
                                 Row(

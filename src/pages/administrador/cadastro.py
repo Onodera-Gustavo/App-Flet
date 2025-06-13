@@ -12,9 +12,9 @@ def tela_cadastro(page: Page):
     button_style = AppConfig.get_elevated_button_style(page)
 
     
-    nome_field = TextField(label="Nome do candidato:", input_filter=LettersOnlyInputFilter(),  autofocus=True, **text_field_style)
-    genero_field = TextField(label="Partido do candidato:", input_filter=LettersOnlyInputFilter(),  **text_field_style)
-    data_field = TextField(label="Número do candidato:", input_filter=ft.NumbersOnlyInputFilter(), **text_field_style)
+    nome_field = TextField(label="Nome:",  autofocus=True, **text_field_style)
+    genero_field = TextField(label="Produtor:",  **text_field_style)
+    data_field = TextField(label="Data Lançamento:", input_filter=ft.NumbersOnlyInputFilter(), **text_field_style)
     
     cadastrar_button = ElevatedButton(
         text="Cadastrar",
@@ -63,7 +63,7 @@ def tela_cadastro(page: Page):
                             ),
                             
                         ),
-                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Container(expand=True),
                         Row(
                             [
                                 # Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
@@ -108,8 +108,9 @@ def tela_cadastro(page: Page):
                             height=400,
                             alignment= ft.MainAxisAlignment.SPACE_EVENLY
                         ),
-                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
-                    ]
+                        Container(expand=True),
+                    ],
+                    
                 )
             )#Container 
         ],#Control
