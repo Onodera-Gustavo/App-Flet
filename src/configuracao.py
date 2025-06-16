@@ -21,7 +21,7 @@ class AppConfig:
         "error": "#FF6B6B",
         "success": "#4CAF50",
         
-        "teste": "#2FCB34",
+        "teste": "#404045",
         "teste_2": "#CB732F",
         "teste_3": "#2F9CCB",
         "teste_4": "#CB2F82"
@@ -37,7 +37,7 @@ class AppConfig:
                 "title_large": 32 if is_mobile else 48,
                 "title_medium": 24 if is_mobile else 32,
                 "title_small": 20 if is_mobile else 24,
-                "body_large": 16 if is_mobile else 20,
+                "body_large": 18 if is_mobile else 20,
                 "body_medium": 14 if is_mobile else 16,
                 "body_small": 12 if is_mobile else 14,
                 "label": 14 if is_mobile else 18
@@ -69,9 +69,9 @@ class AppConfig:
         colors = AppConfig.COLOR_PALETTE
         
         return {
-            "border_color": colors["secondary"],
+            "border_color": colors["accent"],
             "border" :ft.InputBorder.UNDERLINE,
-            "focused_border_color": colors["accent"],
+            "focused_border_color": colors["secondary"],
             "cursor_color": colors["accent"],
             "text_size": 16 if not is_mobile else 14,
             "color": colors["text"],
@@ -107,6 +107,10 @@ class AppConfig:
                 weight=FontWeight.BOLD,
                 color=colors["text"]
             ),
+            "body_large": TextStyle(
+                size=theme_config["text_sizes"]["body_large"],
+                color=colors["text"]
+            ),
             "body_medium": TextStyle(
                 size=theme_config["text_sizes"]["body_medium"],
                 color=colors["text"]
@@ -115,6 +119,7 @@ class AppConfig:
                 size=theme_config["text_sizes"]["body_small"],
                 color=colors["text"]
             ),
+
             "body_description": TextStyle(
                 size=theme_config["text_sizes"]["body_small"],
                 color=colors["accent"]
@@ -128,39 +133,50 @@ class AppConfig:
         return styles.get(style_type, styles["body_medium"])
 
     @staticmethod
-    def get_elevated_button_style(page: Page, style_type: str = "primary"):
+    def get_elevated_button_style(page: Page, style_type: str = "primary", text_style: str = "body_medium"):
         """Retorna estilo para ElevatedButton baseado na plataforma"""
         colors = AppConfig.COLOR_PALETTE
         theme_config = AppConfig.get_theme_config(page.platform)
 
-        if style_type == "error":
-            return ButtonStyle(
-                bgcolor=colors["error"],
-                color=colors["text"],
-                elevation=4,
-                padding=theme_config["button"]["padding"],
-                shape=RoundedRectangleBorder(radius=8),
-                overlay_color=colors["on_error"]
-            )
         
-        if style_type == "menu":
-            return ButtonStyle(
-                bgcolor=colors["surface"],
-                color=colors["text"],
-                elevation=4.5,
-                padding=theme_config["button"]["padding"],
-                shape=RoundedRectangleBorder(radius=8),
-            )
 
         if style_type == "primary":
+           return ButtonStyle(
+            bgcolor=colors["button_primary"],
+            color=colors["text"],
+            elevation=4,
+            padding=theme_config["button"]["padding"],
+            shape=RoundedRectangleBorder(radius=8),
+            overlay_color=colors["button_on_hover"],
+            text_style= AppConfig.get_text_style(page, text_style)
+            )
+
+        if style_type == "body_description":
             return ButtonStyle(
-                bgcolor=colors["button_primary"],
-                color=colors["text"],
+            bgcolor=colors["background"],
+            color=colors["text"],
+            elevation=4,
+            padding=theme_config["button"]["padding"],
+            shape=RoundedRectangleBorder(radius=8),
+            overlay_color=colors["teste"],
+            text_style=AppConfig.get_text_style(page, text_style="body_description")
+        )
+
+        if style_type == "secondary":
+            return ButtonStyle(
+                bgcolor="#404045",  # Azul
+                color=AppConfig.COLOR_PALETTE["text"],
                 elevation=4,
                 padding=theme_config["button"]["padding"],
-                shape=RoundedRectangleBorder(radius=8),
-                overlay_color=colors["button_on_hover"]
-                )
+                shape=ft.RoundedRectangleBorder(radius=8),
+                overlay_color="#27272B",  # Azul mais escuro para hover
+                text_style=AppConfig.get_text_style(page, text_style="body_description")
+            )
+
+        
+        
+
+        
         
         
 

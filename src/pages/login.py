@@ -1,6 +1,6 @@
 import flet as ft
 from flet import Page, View, Column, Row, Container, Divider
-from flet import Text, ElevatedButton, TextField
+from flet import Text, ElevatedButton, TextField, TextButton
 
 from pages.function import aviso
 from configuracao import AppConfig
@@ -73,7 +73,7 @@ def tela_login(page: Page):
                             ),
                             
                         ),
-                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Container(expand=True),
                         Text("Login", style=AppConfig.get_text_style(page, style_type="title_medium")),
                         Column(
                             [
@@ -84,9 +84,9 @@ def tela_login(page: Page):
                                         login_button,
                                         Row(
                                             [
-                                                Text("Esqueci a senha", style=AppConfig.get_text_style(page, style_type="body_description")),
+                                                TextButton("Esqueci a senha", style=AppConfig.get_elevated_button_style(page, style_type="body_description")),
                                                 Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
-                                                Text("Cadastrar", style=AppConfig.get_text_style(page, style_type="body_description"))
+                                                TextButton("Cadastrar", style=AppConfig.get_elevated_button_style(page, style_type="body_description"))
                                             ],
                                             spacing=20,
                                             alignment=ft.MainAxisAlignment.START
@@ -102,7 +102,7 @@ def tela_login(page: Page):
                             spacing=30,
                             
                         ),
-                        Container(expand=True, bgcolor=AppConfig.COLOR_PALETTE["secondary"]),
+                        Container(expand=True),
                         Column(
                             [
                                 Row(

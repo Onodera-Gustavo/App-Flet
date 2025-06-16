@@ -25,7 +25,7 @@ def main(page: Page) -> None:
         page.views.clear()
 
         if page.route == "/":
-            page.views.append(tela_menu(page))
+            page.views.append(tela_cadastro(page))
 
         # if page.route == "/":
         #     page.views.append(tela_login(page))
