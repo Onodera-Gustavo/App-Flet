@@ -2,7 +2,7 @@ import flet as ft
 from flet import Page, View, Column, Row, Container, Divider
 from flet import Text, ElevatedButton, TextField, TextStyle, FontWeight
 
-from pages.function import aviso, LettersOnlyInputFilter
+from pages.function import aviso
 from configuracao import AppConfig
 
 
@@ -18,7 +18,6 @@ def tela_cadastro(page: Page):
         label="Nome:", 
         width=356, 
         height=45, 
-        input_filter=LettersOnlyInputFilter(), 
         autofocus=True, 
         **text_field_style
     )
@@ -27,7 +26,6 @@ def tela_cadastro(page: Page):
         label="Gênero:", 
         width=356, 
         height=45, 
-        input_filter=LettersOnlyInputFilter(), 
         **text_field_style
     )
     
@@ -45,7 +43,7 @@ def tela_cadastro(page: Page):
         text="Cadastrar",
         width=356,
         height=34,
-        style=AppConfig.get_elevated_button_style(page, "primary", "body_small")  # Use cadastrar_style em vez de button_style
+        style=AppConfig.get_elevated_button_style(page, text_style = "body_small")
     )
 
     retornar_button = ElevatedButton(
@@ -53,10 +51,8 @@ def tela_cadastro(page: Page):
         width=356,
         height=34,
         on_click=lambda _: page.go("/menu"),
-        style=AppConfig.get_elevated_button_style(page, "secundary")  # Use retornar_style em vez de button_style
+        style=AppConfig.get_elevated_button_style(page, bg_color = "surface", text_style="body_small", on_hover="on_tertiary")
     )
-
-    # Layout principal
     
     # Layout principal
     content_column = Column(
@@ -155,7 +151,7 @@ def tela_cadastro(page: Page):
                 spacing=4,
             )
         ]
-    )  # Remova a vírgula aqui
+    )
 
     return View(
         route="/cadastro",

@@ -13,7 +13,7 @@ def tela_menu(page: Page):
         e.control.opacity = 0.65 if e.data == "true" else 1.0
         e.control.update()
 
-    # Botão 1 - Corte inferior esquerdo
+    # Corte inferior esquerdo, Page.go_Editar
     editar_button = ft.Container(
         shadow=[
             ft.BoxShadow(
@@ -23,12 +23,14 @@ def tela_menu(page: Page):
                 spread_radius=1,
             )
         ],
+        on_click=lambda _: page.go("/edicao"),
+        
         content=ft.Stack(
             controls=[
                 ft.Container(
                     width=180,
                     height=67,
-                    bgcolor= AppConfig.COLOR_PALETTE["teste"],
+                    bgcolor= AppConfig.COLOR_PALETTE["on_primary"],
                     border_radius=ft.border_radius.only(
                         bottom_left=30
                     )
@@ -36,7 +38,7 @@ def tela_menu(page: Page):
                 ft.Container(
                     width=40,
                     height=67,
-                    bgcolor= AppConfig.COLOR_PALETTE["teste"],
+                    bgcolor= AppConfig.COLOR_PALETTE["on_primary"],
                     left=10,
                     top=1,
                     
@@ -49,7 +51,7 @@ def tela_menu(page: Page):
         animate_opacity=200,
     )
 
-    # Botão 2 - Corte inferior direito
+    # Corte inferior direito, Page.go_Cadastro
     cadastrar_button = ft.Container(
         shadow=[
             ft.BoxShadow(
@@ -59,12 +61,14 @@ def tela_menu(page: Page):
                 spread_radius=1,
             )
         ],
+        on_click= lambda _: page.go("/cadastro"),
+        
         content=ft.Stack(
             controls=[
                 ft.Container(
                     width=180,
                     height=67,
-                    bgcolor= AppConfig.COLOR_PALETTE["teste"],
+                    bgcolor= AppConfig.COLOR_PALETTE["on_primary"],
                     border_radius=ft.border_radius.only(
                         bottom_right=30
                     )
@@ -72,7 +76,7 @@ def tela_menu(page: Page):
                 ft.Container(
                     width=40,
                     height=67,
-                    bgcolor= AppConfig.COLOR_PALETTE["teste"],
+                    bgcolor= AppConfig.COLOR_PALETTE["on_primary"],
                     left=130,
                     top=1,
                     rotate=ft.Rotate(angle=-44.8),
@@ -84,7 +88,7 @@ def tela_menu(page: Page):
         animate_opacity=200,
     )
 
-    # Botão 3 - Corte superior esquerdo
+    # Corte superior esquerdo, Page.go_Relatorios
     relatorios_button = ft.Container(
         shadow=[
             ft.BoxShadow(
@@ -94,13 +98,14 @@ def tela_menu(page: Page):
                 spread_radius=1,
             )
         ],
+        on_click = lambda _: page.go("/relatorio"),
         
         content=ft.Stack(
             controls=[
                 ft.Container(
                     width=180,
                     height=67,
-                    bgcolor= AppConfig.COLOR_PALETTE["teste"],
+                    bgcolor= AppConfig.COLOR_PALETTE["on_primary"],
                     border_radius=ft.border_radius.only(
                         top_left=30,
                     )
@@ -108,7 +113,7 @@ def tela_menu(page: Page):
                 ft.Container(
                     width=40,
                     height=67,
-                    bgcolor= AppConfig.COLOR_PALETTE["teste"],
+                    bgcolor= AppConfig.COLOR_PALETTE["on_primary"],
                     left=10,
                     top=1,
                     rotate=ft.Rotate(angle=-44.8),
@@ -119,8 +124,8 @@ def tela_menu(page: Page):
         on_hover=on_hover,
         animate_opacity=200,
     )
-
-    # Botão 4 - Corte superior direito
+    
+    # Corte superior direito, Page.go_Login 
     finalizar_button = ft.Container(
         shadow=[
             ft.BoxShadow(
@@ -128,14 +133,16 @@ def tela_menu(page: Page):
                 color=ft.Colors.BLACK26,
                 offset=ft.Offset(6, 6),
                 spread_radius=1,
-            )
+            ),
         ],
+        on_click=lambda _: page.go("/"),
+        
         content=ft.Stack(
             controls=[
                 ft.Container(
                     width=180,
                     height=67,
-                   bgcolor= AppConfig.COLOR_PALETTE["teste"],
+                   bgcolor= AppConfig.COLOR_PALETTE["on_primary"],
                     border_radius=ft.border_radius.only(
                         top_right=30
                     )
@@ -143,7 +150,7 @@ def tela_menu(page: Page):
                 ft.Container(
                     width=40,
                     height=67,
-                   bgcolor= AppConfig.COLOR_PALETTE["teste"],
+                   bgcolor= AppConfig.COLOR_PALETTE["on_primary"],
                     left=130,
                     top=1,
                     rotate=ft.Rotate(angle=44.8),

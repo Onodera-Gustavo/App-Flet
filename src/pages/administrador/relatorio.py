@@ -1,12 +1,20 @@
 import flet as ft
-from flet import Page, View, Text, ElevatedButton, Image, Column, Row
-from pages.function import aviso, elevated_button_style
+from flet import Page, View, Column, Row, Container, Divider
+from flet import Text, ElevatedButton, TextField, TextButton, Image
+
+
+from pages.function import aviso
+from configuracao import AppConfig
 from pages.db import carregar_candidatos, escolher_caminho
 
 import matplotlib.pyplot as plt
 
 def tela_relatorio(page: Page):
     """Imprimir Relatório de Votação"""
+    style = AppConfig.get_elevated_button_style(page)
+    exportar = ElevatedButton(text="Exportar", width=180, scale=1.3, on_click=lambda _: importar(), style=style),
+    retorno = ElevatedButton(text="Retornar", width=180, scale=1.3, on_click=lambda _: page.go("/menu"), style=style),
+    
     candidatos = carregar_candidatos(caminho="Candidato")
     total_votos = sum(candidato["Votos"] for candidato in candidatos)
     
@@ -63,6 +71,8 @@ def tela_relatorio(page: Page):
         except Exception as e:
             aviso(page, "Erro", f"Falha ao exportar relatório: {str(e)}")
 
+
+
     return View(
         route="/relatorio",
         controls=[
@@ -75,8 +85,8 @@ def tela_relatorio(page: Page):
             # resultado,
             Image(src="grafico_votacao.png", width=600, height=400),
             Row([
-                ElevatedButton(text="Exportar", width=180, scale=1.3, on_click=lambda _: importar(), style=elevated_button_style),
-                ElevatedButton(text="Retornar", width=180, scale=1.3, on_click=lambda _: page.go("/menu"), style=elevated_button_style),
+                exportar,
+                retorno
             ], 
             spacing=60, 
             alignment = ft.MainAxisAlignment.SPACE_BETWEEN,

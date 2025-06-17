@@ -9,12 +9,11 @@ from pages.login import tela_login
 from pages.administrador.menu import tela_menu
 from pages.administrador.cadastro import tela_cadastro
 from pages.administrador.relatorio import tela_relatorio
+from pages.administrador.edicao import tela_edicao
 
 from pages.eleitor.votacao import tela_votacao
 
 from configuracao import configurar_app
-
-
 
 def main(page: Page) -> None:
 
@@ -24,23 +23,29 @@ def main(page: Page) -> None:
         """Evento de mudança de rota"""
         page.views.clear()
 
-        if page.route == "/":
-            page.views.append(tela_cadastro(page))
-
+        # Use para ir direto a página que deseja
         # if page.route == "/":
-        #     page.views.append(tela_login(page))
+        #     page.views.append(tela_cadastro(page))
+
+        if page.route == "/":
+            page.views.append(tela_login(page))
+            
+        elif page.route == "/votacao":
+            page.views.append(tela_votacao(page))
 
         elif page.route == "/menu":
-            page.views.append()
+            page.views.append(tela_menu(page))
 
         elif page.route == "/cadastro":
             page.views.append(tela_cadastro(page))
 
-        elif page.route == "/votacao":
-            page.views.append(tela_votacao(page))
-
         elif page.route == "/relatorio":
             page.views.append(tela_relatorio(page))
+            
+        elif page.route == "/edicao":
+            page.views.append(tela_edicao(page))
+            
+            
 
         page.update()
     

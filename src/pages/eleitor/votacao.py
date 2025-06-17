@@ -1,12 +1,13 @@
 import flet as ft
 from flet import Page, View, Column, Row, Container, Divider, GridView
-from flet import Text, ElevatedButton, TextField
+from flet import Text, ElevatedButton
 
 from pages.function import aviso
 from configuracao import AppConfig
 
 def tela_votacao(page: Page):
     """Votação de Alunos"""
+    
     button_style = AppConfig.get_elevated_button_style(page)
 
     def criar_cartoes(data: str, nome: str, i: int):
@@ -73,15 +74,13 @@ def tela_votacao(page: Page):
         return cartao
     
     grid_cartoes = GridView(
-        controls=[criar_cartoes("Data", f"Jogo {i}", i) for i in range(30)],
+        controls=[criar_cartoes("Data", f"Jogo {i}", i) for i in range(10)],
         runs_count=4,  # força 4 colunas
         max_extent=300,
         child_aspect_ratio=1,
         spacing=15,
         run_spacing=15,
         expand=True,
-        
-        
     )
 
     def votar():
@@ -94,6 +93,7 @@ def tela_votacao(page: Page):
         padding=20,
         spacing=0,
         bgcolor=AppConfig.COLOR_PALETTE["background"],
+        
         controls=[
         Container(
             expand=True,

@@ -6,25 +6,27 @@ class AppConfig:
     
     # Paleta de cores consistente
     COLOR_PALETTE = {
-        "button_primary": "#CF0810",
-        "button_on_hover": "#800408",
-
+        "primary": "#CF0810",
         "secondary": "#A61F1F",
+        
+        "on_primary": "#292A2D",
         "on_secondary": "#282828",
+        "on_tertiary": "#27272B",
+        
+        "on_hover": "#800408",
         
         "accent": "#B3B3B3",
         "text": "#ffffff",
 
         "background": "#212327",
-        "surface": "#212327",
+        "surface": "#404045",
 
         "error": "#FF6B6B",
         "success": "#4CAF50",
         
-        "teste": "#404045",
-        "teste_2": "#CB732F",
-        "teste_3": "#2F9CCB",
-        "teste_4": "#CB2F82"
+        "teste": "#CB732F",
+        "teste1": "#2F9CCB",
+        "teste2": "#CB2F82"
     }
 
     @staticmethod
@@ -120,6 +122,7 @@ class AppConfig:
                 color=colors["text"]
             ),
 
+            # texto especial para descrição e 
             "body_description": TextStyle(
                 size=theme_config["text_sizes"]["body_small"],
                 color=colors["accent"]
@@ -133,52 +136,23 @@ class AppConfig:
         return styles.get(style_type, styles["body_medium"])
 
     @staticmethod
-    def get_elevated_button_style(page: Page, style_type: str = "primary", text_style: str = "body_medium"):
+    def get_elevated_button_style(page: Page, bg_color: str = "primary", txt_color: str = "text",
+                                  text_style: str = "body_medium", hover: bool = True, on_hover: str = "on_hover"):
+        
         """Retorna estilo para ElevatedButton baseado na plataforma"""
         colors = AppConfig.COLOR_PALETTE
         theme_config = AppConfig.get_theme_config(page.platform)
 
-        
-
-        if style_type == "primary":
-           return ButtonStyle(
-            bgcolor=colors["button_primary"],
-            color=colors["text"],
-            elevation=4,
-            padding=theme_config["button"]["padding"],
-            shape=RoundedRectangleBorder(radius=8),
-            overlay_color=colors["button_on_hover"],
-            text_style= AppConfig.get_text_style(page, text_style)
-            )
-
-        if style_type == "body_description":
-            return ButtonStyle(
-            bgcolor=colors["background"],
-            color=colors["text"],
-            elevation=4,
-            padding=theme_config["button"]["padding"],
-            shape=RoundedRectangleBorder(radius=8),
-            overlay_color=colors["teste"],
-            text_style=AppConfig.get_text_style(page, text_style="body_description")
+        return ButtonStyle(
+        bgcolor=colors[bg_color],
+        color=colors[txt_color], # se quiser sobre escrever a cor já imposta pelo text_style
+        elevation=4,
+        padding=theme_config["button"]["padding"],
+        shape=RoundedRectangleBorder(radius=8),
+        overlay_color=colors[on_hover] if hover else None,
+        text_style= AppConfig.get_text_style(page, text_style)
         )
-
-        if style_type == "secondary":
-            return ButtonStyle(
-                bgcolor="#404045",  # Azul
-                color=AppConfig.COLOR_PALETTE["text"],
-                elevation=4,
-                padding=theme_config["button"]["padding"],
-                shape=ft.RoundedRectangleBorder(radius=8),
-                overlay_color="#27272B",  # Azul mais escuro para hover
-                text_style=AppConfig.get_text_style(page, text_style="body_description")
-            )
-
-        
-        
-
-        
-        
-        
+                
 
 def configurar_app(page: Page):
     """Configura a aplicação baseada na plataforma"""
@@ -230,8 +204,8 @@ def aplicar_tema_global(page: Page):
     
     page.theme = Theme(
         color_scheme=ft.ColorScheme(
-            primary=colors["button_primary"],
-            on_primary=colors["button_on_hover"],
+            primary=colors["primary"],
+            on_primary=colors["on_hover"],
 
             secondary=colors["secondary"],
             on_secondary=colors["text"],

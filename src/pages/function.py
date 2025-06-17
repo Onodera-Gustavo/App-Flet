@@ -1,16 +1,84 @@
 import flet as ft
-from flet import Page, Text, AlertDialog, TextButton
 
+from flet import Page, View, Column, Row, Container, Divider
+from flet import Text, ElevatedButton, TextField, TextButton, AlertDialog
 
-class LettersOnlyInputFilter(ft.InputFilter):
-    """ Filtro para permitir apenas letras e espaços no TextField """
-    def __init__(self):
-        super().__init__(regex_string=r"[a-zA-ZáéíóúÁÉÍÓÚâêîôÂÊÎÔãõÃÕçÇàèìòùÀÈÌÒÙäëïöüÄËÏÖÜñÑ\s'-]")
-        
-    def filter(self, text, multiline=False):
-        import re
-        return re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚâêîôÂÊÎÔãõÃÕçÇàèìòùÀÈÌÒÙäëïöüÄËÏÖÜñÑ\s\'- ]', '', text)
-    
+from configuracao import AppConfig
+
+import flet as ft
+from flet import Page, Container, Column, Row, Text, Divider, Image
+
+class TelaBase:
+    def __init__(self, page: Page):
+        self.page = page
+
+    def _build_header(self) -> Container:
+        return Container(
+            alignment=ft.alignment.top_center,
+            content=Column(
+                [
+                    Image(
+                        src="../assets/Logo.png",
+                        width=150,
+                        height=150,
+                        fit=ft.ImageFit.CONTAIN
+                    ),
+                    Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                ],
+                horizontal_alignment="center",
+                spacing=6
+            ),
+        )
+
+    def _build_footer(self) -> Container:
+        return Container(
+            content=Column(
+                [
+                    Row(
+                        [
+                            Text("Termos de uso", style=AppConfig.get_text_style(self.page, style_type="body_description")),
+                            Text("|", style=AppConfig.get_text_style(self.page, style_type="body_description")),
+                            Text("Política de privacidade", style=AppConfig.get_text_style(self.page, style_type="body_description")),
+                            Text("|", style=AppConfig.get_text_style(self.page, style_type="body_description")),
+                            Text("Cookies", style=AppConfig.get_text_style(self.page, style_type="body_description"))
+                        ],
+                        alignment=ft.MainAxisAlignment.SPACE_AROUND
+                    ),
+                    Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                    Row(
+                        [
+                            Text("SENAI - SP", style=AppConfig.get_text_style(self.page, style_type="body_description")),
+                            Text("|", style=AppConfig.get_text_style(self.page, style_type="body_description")),
+                            Text("Game Awards", style=AppConfig.get_text_style(self.page, style_type="body_description"))
+                        ],
+                        alignment=ft.MainAxisAlignment.START
+                    )
+                ],
+                spacing=4,
+            )
+        )
+
+    def construir(self, body: Container, header: bool = True, footer: bool = True) -> Container:
+        conteudo = []
+
+        if header:
+            conteudo.append(self._build_header())
+
+        if body:
+            conteudo.append(body)
+
+        if footer:
+            conteudo.append(self._build_footer())
+
+        return Container(
+            content=Column(
+                controls=conteudo,
+                expand=True,
+                spacing=20,
+            ),
+            padding=20
+        )
+
 
 class aviso():
     """ Classe para mostrar diálogos de aviso """
@@ -42,7 +110,7 @@ class aviso():
             ],
             actions_alignment=ft.MainAxisAlignment.END,
             shape=ft.RoundedRectangleBorder(radius=10),  # Bordas arredondadas
-            bgcolor="#1469A1",  # Cor de fundo do diálogo
+            bgcolor="#1469A1",
             content_padding=ft.padding.all(20),  # Espaçamento interno
         )
         
@@ -61,30 +129,3 @@ class aviso():
     # def buttons(self, *buttons):
     #     for button in buttons:
     #         self.dialog.actions.append(button)
-
-
-
-text_field_style = {
-    "border_color": "#85ACC7",  # Cor da borda
-    "border_radius": 10,        # Cantos arredondados
-    "border_width": 1.5,        # Espessura da borda
-    "focused_border_color": "#207FBE",  # Cor quando em foco
-    "cursor_color": "#1469A1",  # Cor do cursor
-    "selection_color": "#B5E0FD",  # Cor da seleção de texto
-    "text_size": 16,            # Tamanho do texto
-    "color": "#B5E0FD",         # Cor do texto digitado
-    "bgcolor": "#000000",       # Cor de fundo
-    "height": 50,               # Altura consistente
-    "content_padding": 15       # Espaçamento interno
-}
-
-elevated_button_style = ft.ButtonStyle(
-    color="#F5F9FC",                  # Cor do texto
-    bgcolor="#1469A1",                # Cor de fundo
-    overlay_color="#1E88E5",          # Cor quando hover
-    shadow_color="#0D47A1",           # Cor da sombra
-    elevation=4,                      # Altura da sombra
-    padding=ft.padding.symmetric(horizontal=20, vertical=15),  # Espaçamento interno
-    shape=ft.RoundedRectangleBorder(radius=10),  # Bordas arredondadas
-    animation_duration=200,           # Duração da animação
-)

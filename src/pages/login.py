@@ -9,7 +9,6 @@ def tela_login(page: Page):
     
     
     text_field_style = AppConfig.get_text_field_style(page)
-    button_style = AppConfig.get_elevated_button_style(page)
 
     identificacao_field = TextField(
         label="Identificação",
@@ -23,7 +22,7 @@ def tela_login(page: Page):
         label="Senha",
         width=400,
         prefix_icon=ft.Icons.LOCK,
-        **AppConfig.get_text_field_style(page),
+        **text_field_style,
         password=True,
         can_reveal_password=True
     )
@@ -33,7 +32,7 @@ def tela_login(page: Page):
         scale=1.3,
         width=250,
         on_click=lambda _: filtro_usuarios(),
-        style=button_style
+        style= AppConfig.get_elevated_button_style(page)
     )
 
     def filtro_usuarios():
@@ -52,12 +51,10 @@ def tela_login(page: Page):
         controls=[
             Container(
                 expand = True,
-                # bgcolor=AppConfig.COLOR_PALETTE["teste"],
                 content=Column(
                     [
                         Container(
                             alignment=ft.alignment.top_center,
-                            # bgcolor=AppConfig.COLOR_PALETTE["teste_2"],
                             content=Column(
                                 [
                                     ft.Image(
@@ -84,9 +81,9 @@ def tela_login(page: Page):
                                         login_button,
                                         Row(
                                             [
-                                                TextButton("Esqueci a senha", style=AppConfig.get_elevated_button_style(page, style_type="body_description")),
+                                                TextButton("Esqueci a senha", style=AppConfig.get_elevated_button_style(page, "background", "text", "body_description", False)),
                                                 Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
-                                                TextButton("Cadastrar", style=AppConfig.get_elevated_button_style(page, style_type="body_description"))
+                                                TextButton("Cadastrar", style=AppConfig.get_elevated_button_style(page, "background", "text", "body_description", False))
                                             ],
                                             spacing=20,
                                             alignment=ft.MainAxisAlignment.START
