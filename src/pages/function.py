@@ -1,7 +1,8 @@
 import flet as ft
 
-from flet import Page, View, Column, Row, Container, Divider
-from flet import Text, ElevatedButton, TextField, TextButton, AlertDialog
+import flet as ft
+from flet import Page, View, Column, Row, Container, Divider, AlertDialog, Stack
+from flet import Text, ElevatedButton, TextField, TextButton
 
 from configuracao import AppConfig
 
@@ -82,49 +83,84 @@ class TelaBase:
 
 class aviso():
     """ Classe para mostrar diálogos de aviso """
-    def __init__(self, page: Page, titulo: str, texto: str|Exception):
+    def __init__(self, page: Page, titulo: str, texto: str | Exception):
         self.page = page
-        
+
         self.dialog = AlertDialog(
             modal=True,
-            title= Text(
-                titulo,
-                size=20,
-                weight=ft.FontWeight.BOLD,
-                color="#F5F9FC" 
+            on_dismiss= lambda _: self.close_dialog(),  # <-- fecha o diálogo
+
+            title=Row(
+                        [
+                            
+                            ft.Text(
+                                titulo,
+                                size=20,
+                                weight=ft.FontWeight.BOLD,
+                                color="#FFFFFF",
+                                text_align=ft.TextAlign.CENTER,
+                                expand=True
+                            ),
+                            ft.IconButton(
+                                alignment=ft.alignment.top_left,
+                                icon=ft.Icons.CLOSE,
+                                bgcolor="#5C5C5C",
+                                icon_color="white",
+                                on_click= lambda _: self.close_dialog(),
+                            ),
+                           
+                        ],
+                        
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+                    ),
+            
+            content=Column(
+                [
+                    
+                    Container(expand=True),
+                    Text(
+                        str(texto),
+                        size=16,
+                        color="#FFFFFF",
+                        text_align=ft.TextAlign.CENTER,
+                    ),
+                    Container(expand=True),
+                    ElevatedButton(
+                        "CONFIRMAR",
+                        width=183,
+                        height=51,
+                        style=ft.ButtonStyle(
+                            bgcolor="#5C5C5C",
+                            color="#F5F9FC",
+                            overlay_color="#212529",
+                            padding=ft.padding.symmetric(horizontal=20, vertical=10),
+                            shape=ft.RoundedRectangleBorder(radius=1),
+                            side=ft.BorderSide(color=ft.Colors.WHITE, width=1)
+                        ),
+                        on_click= lambda _: self.close_dialog()
+                    ),
+                ],
+                height=207,
+                width=378,
+                alignment=ft.MainAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            content= Text(
-                str(texto),
-                size=16,
-                color="#B5E0FD" 
-            ),
-            actions=[
-                TextButton(
-                    "OK",
-                    style=ft.ButtonStyle(
-                        color="#F5F9FC",
-                        overlay_color="#1E88E5",
-                        padding=ft.padding.symmetric(horizontal=20, vertical=10)),
-                    on_click=self.close_dialog
-                )
-            ],
-            actions_alignment=ft.MainAxisAlignment.END,
-            shape=ft.RoundedRectangleBorder(radius=10),  # Bordas arredondadas
-            bgcolor="#1469A1",
-            content_padding=ft.padding.all(20),  # Espaçamento interno
+            shape=ft.RoundedRectangleBorder(radius=10),
+            bgcolor="#363636",
+            content_padding=ft.padding.all(15),
         )
-        
+
         self.show()
 
     def show(self):
-        self.page.overlay.append(self.dialog) # Adiciona o diálogo aos overlays para aparecer afrente da página
-        self.page.update()
+        self.page.overlay.append(self.dialog)
         self.dialog.open = True
         self.page.update()
 
-    def close_dialog(self, e=None):
+    def close_dialog(self):
         self.dialog.open = False
         self.page.update()
+
 
     # def buttons(self, *buttons):
     #     for button in buttons:

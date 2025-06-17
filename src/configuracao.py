@@ -77,7 +77,7 @@ class AppConfig:
             "cursor_color": colors["accent"],
             "text_size": 16 if not is_mobile else 14,
             "color": colors["text"],
-            "bgcolor": colors["surface"],
+            "bgcolor": colors["background"],
             "border_radius": 8,
             "border_width": 1.5,
             "content_padding": padding.symmetric(

@@ -86,18 +86,16 @@ def tela_login(page: Page):
                                                 TextButton("Cadastrar", style=AppConfig.get_elevated_button_style(page, "background", "text", "body_description", False))
                                             ],
                                             spacing=20,
-                                            alignment=ft.MainAxisAlignment.START
+                                            alignment=ft.MainAxisAlignment.CENTER
                                         )
                                     ],
-                                    width=320,
+                                    horizontal_alignment="center",
                                     spacing=10,
-                                    horizontal_alignment="center"
+                                    
                                 )
                             ],
                             horizontal_alignment="center",
-                            alignment=ft.alignment.center,
                             spacing=30,
-                            
                         ),
                         Container(expand=True),
                         Column(

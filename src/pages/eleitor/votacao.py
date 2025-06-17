@@ -1,17 +1,18 @@
 import flet as ft
 from flet import Page, View, Column, Row, Container, Divider, GridView
-from flet import Text, ElevatedButton
+from flet import Text, ElevatedButton, TextField
 
 from pages.function import aviso
 from configuracao import AppConfig
 
 def tela_votacao(page: Page):
     """Votação de Alunos"""
-    
     button_style = AppConfig.get_elevated_button_style(page)
+    
 
     def criar_cartoes(data: str, nome: str, i: int):
 
+        
         """Cartões que recebem os jogos para votação"""
         cartao = ft.Card(
             width=180,
@@ -25,7 +26,7 @@ def tela_votacao(page: Page):
                     end=ft.alignment.bottom_center,
                     colors=[AppConfig.COLOR_PALETTE["secondary"],AppConfig.COLOR_PALETTE["on_secondary"]]
                 ),
-                padding=5,
+                padding=15,
                 content=Column(
                     [   
                         Container(
@@ -48,7 +49,7 @@ def tela_votacao(page: Page):
                             [
                                 Column(
                                     [
-                                        Text(value=data, style=AppConfig.get_text_style(page, "body_description"),),
+                                        Text(value=data, style=AppConfig.get_text_style(page, "data_txt"),),
                                         Text(value=nome, style=AppConfig.get_text_style(page, "body_description"),),
                                     ],
                                     alignment=ft.MainAxisAlignment.CENTER
@@ -59,7 +60,7 @@ def tela_votacao(page: Page):
                                     text="Votar",
                                     scale=0.8,
                                     width=100,
-                                    on_click=lambda _: votar(),
+                                    on_click=lambda _: aviso(page, "Confirmar Voto", "Deseja confirmar seu voto?"),
                                     style=button_style
                                 )
                             ],
@@ -74,7 +75,7 @@ def tela_votacao(page: Page):
         return cartao
     
     grid_cartoes = GridView(
-        controls=[criar_cartoes("Data", f"Jogo {i}", i) for i in range(10)],
+        controls=[criar_cartoes("Data", f"Jogo {i}", i) for i in range(20)],
         runs_count=4,  # força 4 colunas
         max_extent=300,
         child_aspect_ratio=1,
@@ -93,7 +94,6 @@ def tela_votacao(page: Page):
         padding=20,
         spacing=0,
         bgcolor=AppConfig.COLOR_PALETTE["background"],
-        
         controls=[
         Container(
             expand=True,

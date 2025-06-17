@@ -38,7 +38,6 @@ def tela_cadastro(page: Page):
     )
     
     # Botões
-    # Na definição dos botões, substitua:
     cadastrar_button = ElevatedButton(
         text="Cadastrar",
         width=356,
@@ -53,6 +52,30 @@ def tela_cadastro(page: Page):
         on_click=lambda _: page.go("/menu"),
         style=AppConfig.get_elevated_button_style(page, bg_color = "surface", text_style="body_small", on_hover="on_tertiary")
     )
+    
+    # Estado da imagem carregada
+    imagem_preview = ft.Image(
+        src="../assets/add_image.png",
+        width=295,
+        height=415,
+        fit=ft.ImageFit.CONTAIN
+    )
+
+    file_picker = ft.FilePicker()
+
+    def selecionar_imagem(e):
+        file_picker.pick_files(allow_multiple=False, allowed_extensions=["jpg", "jpeg", "png"])
+
+    def imagem_selecionada(e: ft.FilePickerResultEvent):
+        if e.files:
+            imagem_preview.src = e.files[0].path
+            page.update()
+
+    file_picker.on_result = imagem_selecionada
+    page.overlay.append(file_picker)
+
+
+    # Layout principal
     
     # Layout principal
     content_column = Column(
@@ -81,23 +104,26 @@ def tela_cadastro(page: Page):
             Row(
                 [
                     # Coluna da imagem
-                    Container(
-                        content=Column(
-                            [
-                                ft.Image(
-                                    src="../assets/add_image.png",
-                                    width=295,
-                                    height=415,
-                                    fit=ft.ImageFit.CONTAIN
-                                ),
-                                Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
-                            ],
-                            alignment="center",
-                            horizontal_alignment="center",
-                            spacing=6
-                        ),
-                        padding=ft.padding.only(right=65)
+                        # Coluna da imagem com clique para escolher
+                Container(
+                    content=Column(
+                        [
+                            Container(
+                                content=imagem_preview,
+                                on_click=selecionar_imagem,
+                                ink=True,  # feedback visual do clique
+                                border_radius=8,
+                                padding=10
+                            ),
+                            Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                        ],
+                        alignment="center",
+                        horizontal_alignment="center",
+                        spacing=6
                     ),
+                    padding=ft.padding.only(right=65)
+                ),
+
                     
                     # Coluna dos campos de formulário
                     Column(
@@ -110,7 +136,7 @@ def tela_cadastro(page: Page):
                                     cadastrar_button,
                                     retornar_button
                                 ],
-                                spacing=25,
+                                spacing=30,
                                 horizontal_alignment="center"
                             )
                         ],
@@ -151,7 +177,7 @@ def tela_cadastro(page: Page):
                 spacing=4,
             )
         ]
-    )
+    )  # Remova a vírgula aqui
 
     return View(
         route="/cadastro",

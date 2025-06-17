@@ -24,11 +24,11 @@ def main(page: Page) -> None:
         page.views.clear()
 
         # Use para ir direto a página que deseja
-        # if page.route == "/":
-        #     page.views.append(tela_cadastro(page))
-
         if page.route == "/":
-            page.views.append(tela_login(page))
+            page.views.append(tela_edicao(page))
+
+        # if page.route == "/":
+        #     page.views.append(tela_login(page))
             
         elif page.route == "/votacao":
             page.views.append(tela_votacao(page))
@@ -44,6 +44,9 @@ def main(page: Page) -> None:
             
         elif page.route == "/edicao":
             page.views.append(tela_edicao(page))
+        
+        elif page.route == "/edicao/editar":
+            page.views.append(tela_edicao.editar(page))
             
             
 
