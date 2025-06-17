@@ -25,7 +25,7 @@ def main(page: Page) -> None:
 
         # Use para ir direto a página que deseja
         if page.route == "/":
-            page.views.append(tela_edicao(page))
+            page.views.append(tela_relatorio(page))
 
         # if page.route == "/":
         #     page.views.append(tela_login(page))

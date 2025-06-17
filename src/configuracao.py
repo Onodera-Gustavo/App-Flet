@@ -130,6 +130,11 @@ class AppConfig:
             "label": TextStyle(
                 size=theme_config["text_sizes"]["label"],
                 color=colors["text"]
+            ),
+            "label_bold": TextStyle(
+                size=theme_config["text_sizes"]["label"],
+                weight=FontWeight.BOLD,
+                color=colors["text"]
             )
         }
         
