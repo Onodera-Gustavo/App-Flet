@@ -25,6 +25,7 @@ class TelaBase:
                         fit=ft.ImageFit.CONTAIN
                     ),
                     Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
+                    Container(expand=True),
                 ],
                 horizontal_alignment="center",
                 spacing=6
@@ -35,6 +36,7 @@ class TelaBase:
         return Container(
             content=Column(
                 [
+                    Container(expand=True),
                     Row(
                         [
                             Text("Termos de uso", style=AppConfig.get_text_style(self.page, style_type="body_description")),

@@ -8,7 +8,6 @@ from pages.function import aviso, TelaBase
 from configuracao import AppConfig
 
 
-
 def tela_edicao(page: Page):
     """Cadastro de Candidatos"""
     tela = TelaBase(page)
@@ -104,42 +103,48 @@ def tela_edicao(page: Page):
         content= grid_cartoes
     )
 
-    def abrir_edicao(id: int, nome: str ):
-        nova_view = editar(id, nome)
+    def abrir_edicao(id: int, nome: str, genero: str, ano_lancamento: str):
+        nova_view = editar(id, nome, genero, ano_lancamento)  # Passe todos os parâmetros
         page.views.append(nova_view)
         page.go("/edicao/editar")
 
     
-    def editar( id: int, nome: str):
-
+    def editar(id: int, nome: str, genero: str, ano_lancamento: str):
+        # Campos de texto com valores iniciais
         nome_field = TextField(
-            label=f"Nome:", 
-            width=356, 
-            height=45, 
-            autofocus=True, 
+            label="Nome:",
+            width=356,
+            height=45,
+            autofocus=True,
+            value=nome,  # Define o valor inicial do campo
             **text_field_style
         )
         
         genero_field = TextField(
-            label="Gênero:", 
-            width=356, 
-            height=45, 
+            label="Gênero:",
+            width=356,
+            height=45,
+            value=genero,  # Define o valor inicial do campo
             **text_field_style
         )
         
         data_field = TextField(
-            label="Ano de lançamento", 
-            width=356, 
-            height=45, 
-            input_filter=ft.NumbersOnlyInputFilter(), 
+            label="Ano de lançamento",
+            width=356,
+            height=45,
+            input_filter=ft.NumbersOnlyInputFilter(),
+            value=ano_lancamento,  # Define o valor inicial do campo
             **text_field_style
         )
+    
+    # Restante do código (botões, imagem, etc.)...
         
-        cadastrar_button = ElevatedButton(
+        editar_button = ElevatedButton(
             text="Cadastrar",
             width=356,
             height=34,
-            style=AppConfig.get_elevated_button_style(page, text_style = "body_small")
+            style=AppConfig.get_elevated_button_style(page, text_style = "body_small"),
+            on_click=lambda _: salvar_editado(id, nome_field.value, genero_field.value, data_field.value)
         )
 
         retornar_button = ElevatedButton(
@@ -149,6 +154,32 @@ def tela_edicao(page: Page):
             on_click=lambda _: page.go("/edicao"),
             style=AppConfig.get_elevated_button_style(page, bg_color = "surface", text_style="body_small", on_hover="on_tertiary")
         )
+        
+        def salvar_editado(id: int, nome: str, genero: str, ano_lancamento: str):
+            try:
+                # Dados a serem enviados para a API
+                dados = {
+                    "nome_jogo": nome,
+                    "genero": genero,
+                    "data_lancamento": int(ano_lancamento)  # Converte para int (como esperado no backend)
+                }
+                
+                # Faz a requisição PUT para a API
+                response = requests.put(
+                    f"http://localhost:8000/atualizar_jogo/{id}",
+                    json=dados
+                )
+                
+                if response.status_code == 200:
+                    aviso(page, "Jogo atualizado com sucesso!", cor=AppConfig.COLOR_PALETTE["success"])
+                    page.go("/edicao")  # Volta para a tela de edição após salvar
+                else:
+                    aviso(page, f"Erro ao atualizar: {response.text}", cor=AppConfig.COLOR_PALETTE["error"])
+            
+            except Exception as e:
+                aviso(page, f"Falha na conexão: {str(e)}", cor=AppConfig.COLOR_PALETTE["error"])
+                
+                
         # Estado da imagem carregada
         imagem_preview = ft.Image(
             src="../assets/add_image.png",
@@ -169,8 +200,6 @@ def tela_edicao(page: Page):
 
         file_picker.on_result = imagem_selecionada
         page.overlay.append(file_picker)
-
-
 
         # Corpo principal
         corpo = Column(
@@ -205,7 +234,7 @@ def tela_edicao(page: Page):
                                 data_field,
                                 Column(
                                     [
-                                        cadastrar_button,
+                                        editar_button,
                                         retornar_button
                                     ],
                                     spacing=30,
@@ -222,7 +251,6 @@ def tela_edicao(page: Page):
             ]
         ) 
 
-        
         return View(
             route="/edicao",
             controls= [tela.construir(body=corpo)]

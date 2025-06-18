@@ -109,6 +109,7 @@ class AppConfig:
                 weight=FontWeight.BOLD,
                 color=colors["text"]
             ),
+            
             "body_large": TextStyle(
                 size=theme_config["text_sizes"]["body_large"],
                 color=colors["text"]
