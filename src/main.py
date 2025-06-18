@@ -11,6 +11,8 @@ from pages.administrador.cadastro import tela_cadastro
 from pages.administrador.relatorio import tela_relatorio
 from pages.administrador.edicao import tela_edicao
 
+from pages.secundario.cad_esqu import tela_cad_esqu
+
 from pages.eleitor.votacao import tela_votacao
 
 from configuracao import configurar_app
@@ -25,7 +27,7 @@ def main(page: Page) -> None:
 
         # Use para ir direto a página que deseja
         # if page.route == "/":
-        #     page.views.append(tela_relatorio(page))
+        #     page.views.append(tela_cad_esqu(page))
 
         if page.route == "/":
             page.views.append(tela_login(page))
@@ -47,6 +49,9 @@ def main(page: Page) -> None:
         
         elif page.route == "/edicao/editar":
             page.views.append(tela_edicao.editar(page))
+            
+        elif page.route == "/cad_esqu":
+            page.views.append(tela_cad_esqu(page))
             
             
 

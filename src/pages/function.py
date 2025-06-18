@@ -25,18 +25,17 @@ class TelaBase:
                         fit=ft.ImageFit.CONTAIN
                     ),
                     Divider(color=AppConfig.COLOR_PALETTE["accent"], height=1),
-                    Container(expand=True),
                 ],
                 horizontal_alignment="center",
                 spacing=6
-            ),
+            )
         )
 
     def _build_footer(self) -> Container:
         return Container(
             content=Column(
                 [
-                    Container(expand=True),
+                    
                     Row(
                         [
                             Text("Termos de uso", style=AppConfig.get_text_style(self.page, style_type="body_description")),
@@ -63,12 +62,15 @@ class TelaBase:
 
     def construir(self, body: Container, header: bool = True, footer: bool = True) -> Container:
         conteudo = []
+        espaco = Container(expand=True)
 
         if header:
             conteudo.append(self._build_header())
 
         if body:
+            conteudo.append(espaco)
             conteudo.append(body)
+            conteudo.append(espaco)
 
         if footer:
             conteudo.append(self._build_footer())
@@ -79,6 +81,7 @@ class TelaBase:
                 expand=True,
                 spacing=20,
             ),
+            expand=True,
             padding=20
         )
 

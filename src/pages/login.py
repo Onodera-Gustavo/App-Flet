@@ -81,9 +81,9 @@ def tela_login(page: Page):
                                         login_button,
                                         Row(
                                             [
-                                                TextButton("Esqueci a senha", style=AppConfig.get_elevated_button_style(page, "background", "text", "body_description", False)),
+                                                TextButton("Esqueci a senha", on_click=lambda _: page.go("/cad_esqu"), style=AppConfig.get_elevated_button_style(page, "background", "text", "body_description", False)),
                                                 Text("|", style=AppConfig.get_text_style(page, style_type="body_description")),
-                                                TextButton("Cadastrar", style=AppConfig.get_elevated_button_style(page, "background", "text", "body_description", False))
+                                                TextButton("Cadastrar", on_click=lambda _: page.go("/cad_esqu"), style=AppConfig.get_elevated_button_style(page, "background", "text", "body_description", False))
                                             ],
                                             spacing=20,
                                             alignment=ft.MainAxisAlignment.CENTER

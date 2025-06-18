@@ -67,6 +67,5 @@ def tela_relatorio(page: ft.Page):
         route="/relatorio",
         controls=[tela.construir(body)],
         scroll=ScrollMode.AUTO,
-        vertical_alignment=MainAxisAlignment.CENTER,
-        horizontal_alignment=CrossAxisAlignment.CENTER
+        
     )
